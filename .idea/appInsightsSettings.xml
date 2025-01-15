@@ -8,10 +8,10 @@
             <InsightsFilterSettings>
               <option name="connection">
                 <ConnectionSetting>
-                  <option name="appId" value="PLACEHOLDER" />
-                  <option name="mobileSdkAppId" value="" />
-                  <option name="projectId" value="" />
-                  <option name="projectNumber" value="" />
+                  <option name="appId" value="ca.gbc.managex" />
+                  <option name="mobileSdkAppId" value="1:1088830853434:android:0b6174848944f99ca0c003" />
+                  <option name="projectId" value="managex-55533" />
+                  <option name="projectNumber" value="1088830853434" />
                 </ConnectionSetting>
               </option>
               <option name="signal" value="SIGNAL_UNSPECIFIED" />
