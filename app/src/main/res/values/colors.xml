@@ -4,4 +4,14 @@
     <color name="white">#FFFFFFFF</color>
     <color name="bgSplash">#f6efc8</color>
     <color name="bgBlue">#14242c</color>
+    <color name="greyLow">#A5A5A5</color>
+    <color name="grayHigh">#4D4D4D</color>
+    <color name="card_orange">#f48c42</color>
+    <color name="card_blue">#4c8ddf</color>
+    <color name="card_green">#45876c</color>
+    <color name="dark_blue">#1D4C70</color> <!-- Dark blue from the background -->
+    <color name="light_blue">#728ABF</color> <!-- Lighter blue for the border/background of the button -->
+    <color name="textColor">#FFFFFF</color> <!-- White text color -->
+    <color name="avatarColor">#F1F5FB</color> <!-- Light blueish background for the avatar area -->
+    <color name="avatarOutline">#BFCFEA</color> <!-- Outline for the avatar -->
 </resources>

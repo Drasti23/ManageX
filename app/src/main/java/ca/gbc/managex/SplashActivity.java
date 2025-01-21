@@ -23,7 +23,7 @@ public class SplashActivity extends AppCompatActivity {
 
         // Animate progress over 3 seconds
         ObjectAnimator progressAnimator = ObjectAnimator.ofInt(loadingProgressBar, "progress", 0, 100);
-        progressAnimator.setDuration(3000); // 3 seconds
+        progressAnimator.setDuration(2000); // 3 seconds
         progressAnimator.start();
 
         // Delay for 3 seconds before transitioning to the MainActivity
@@ -32,6 +32,6 @@ public class SplashActivity extends AppCompatActivity {
             Intent intent = new Intent(SplashActivity.this, LoginActivity.class);
             startActivity(intent);
             finish(); // Close the SplashActivity
-        }, 3000); // 3000 milliseconds = 3 seconds
+        }, 2000); // 3000 milliseconds = 3 seconds
     }
 }

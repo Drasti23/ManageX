@@ -5,5 +5,11 @@
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
     </style>
 
-    <style name="Theme.ManageX" parent="Base.Theme.ManageX" />
+    <style name="Theme.ManageX" parent="Base.Theme.ManageX" >
+        <item name="fontFamily">@font/lato_bold</item>
+
+    </style>
+    <style name="TextAppearance.AppCompat." parent="Base.Theme.ManageX">
+        <item name="android:textSize">30sp</item>
+    </style>
 </resources>
