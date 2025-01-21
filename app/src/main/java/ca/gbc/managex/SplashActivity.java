@@ -1,3 +1,4 @@
+
 package ca.gbc.managex;
 import android.animation.ObjectAnimator;
 import android.content.Intent;
@@ -8,6 +9,7 @@ import android.widget.ProgressBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import ca.gbc.managex.user.LoginActivity;
+
 
 public class SplashActivity extends AppCompatActivity {
 

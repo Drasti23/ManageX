@@ -13,6 +13,12 @@
         android:theme="@style/Theme.ManageX"
         tools:targetApi="31">
         <activity
+            android:name=".user.ForgetPasswordActivity"
+            android:exported="false" />
+        <activity
+            android:name=".user.Registration2"
+            android:exported="false" />
+        <activity
             android:name=".user.ForgetActivity"
             android:exported="false" />
         <activity

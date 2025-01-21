@@ -30,27 +30,39 @@
             android:textSize="30sp"
             android:textStyle="bold" />
 
+
+
+
+
         <EditText
             android:id="@+id/etLoginEmail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:textColor="@color/black"
             android:fontFamily="@font/lato_bold"
             android:hint="Restaurant Email"
             android:inputType="textEmailAddress"
+            android:layout_marginTop="10dp"
+            android:drawableEnd="@drawable/baseline_person_24"
             android:padding="10dp"
             android:textSize="20sp" />
+
+
 
         <EditText
             android:id="@+id/etLoginPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
             android:fontFamily="@font/lato_bold"
+            android:textColor="@color/black"
             android:hint="Password"
+            android:layout_marginTop="10dp"
             android:inputType="textPassword"
+            android:drawableEnd="@drawable/baseline_password_24"
             android:padding="10dp"
             android:textSize="20sp" />
+
+
 
         <Button
             android:id="@+id/btnLogin"
@@ -63,11 +75,13 @@
             android:textColor="@android:color/white"
             android:textSize="20sp" />
 
+
         <ImageView
             android:id="@+id/googleLoginIV"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:srcCompat="@drawable/googleimg"
+
             android:layout_marginTop="16dp"/>
 
         <TextView
@@ -75,6 +89,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:textColor="@color/black"
             android:layout_marginTop="16dp"
             android:text="Not registered? Register here." />
 
@@ -83,6 +98,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:textColor="@color/black"
             android:layout_marginTop="16sp"
             android:text="Forgot Password" />
     </LinearLayout>

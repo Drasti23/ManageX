@@ -16,6 +16,11 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;*/
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
@@ -28,6 +33,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.database.annotations.Nullable;
 
 import ca.gbc.managex.MainActivity;
 import ca.gbc.managex.R;
@@ -44,7 +50,6 @@ public class LoginActivity extends AppCompatActivity {
     DatabaseReference reference = database.getReference();
     //private GoogleSignInClient googleSignInClient;
     String storeName,storeEId,storePassword;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,6 +62,7 @@ public class LoginActivity extends AppCompatActivity {
         googleLogin = findViewById(R.id.googleLoginIV);
         tvRegister = findViewById(R.id.tvRegister);
         tvForgot = findViewById(R.id.tvForgot);
+        googleLogin = findViewById(R.id.googleLoginIV);
 
         // Add click listener for login functionality
         btnLogin.setOnClickListener(new View.OnClickListener() {
@@ -70,6 +76,13 @@ public class LoginActivity extends AppCompatActivity {
                 } else {
                     Toast.makeText(LoginActivity.this, "Fill all the required fields.", Toast.LENGTH_LONG).show();
                 }
+            }
+        });
+
+        googleLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                loginWithGoogle();
             }
         });
 
@@ -111,7 +124,7 @@ public class LoginActivity extends AppCompatActivity {
                 });
     }
 
-    private void getStoreName() {
+     private void getStoreName() {
         // Ensure `user` is not null
         if (user == null) {
             Toast.makeText(LoginActivity.this, "User not logged in.", Toast.LENGTH_SHORT).show();
@@ -122,7 +135,7 @@ public class LoginActivity extends AppCompatActivity {
         storeEId = user.getEmail();
 
         // Fetch `store_name` from Firebase
-        reference.child("Users").child(user.getUid()).child("store_name")
+        reference.child("Users").child(user.getUid()).child("credentials").child("restaurantEmail")
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -137,7 +150,7 @@ public class LoginActivity extends AppCompatActivity {
                             startActivity(intent);
                             finish(); // Close LoginActivity
                         } else {
-                            Toast.makeText(LoginActivity.this, "Store name not found.", Toast.LENGTH_SHORT).show();
+                            //Toast.makeText(LoginActivity.this, "Store name not found.", Toast.LENGTH_SHORT).show();
                         }
                     }
 
@@ -157,4 +170,54 @@ public class LoginActivity extends AppCompatActivity {
         }
 
     }
+
+    private void loginWithGoogle() {
+        // Configure Google Sign-In
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id)) // Replace with your actual Web Client ID from Firebase
+                .requestEmail()
+                .build();
+
+        GoogleSignInClient googleSignInClient = GoogleSignIn.getClient(this, gso);
+
+        // Start the Google Sign-In Intent
+        Intent signInIntent = googleSignInClient.getSignInIntent();
+        startActivityForResult(signInIntent, 9001); // 9001 is the request code for Google Sign-In
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == 9001) { // Check if the result is for Google Sign-In
+            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
+            try {
+                // Google Sign-In was successful, authenticate with Firebase
+                GoogleSignInAccount account = task.getResult(ApiException.class);
+                firebaseAuthWithGoogle(account);
+            } catch (ApiException e) {
+                // Google Sign-In failed
+                Toast.makeText(this, "Google Sign-In failed: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    private void firebaseAuthWithGoogle(GoogleSignInAccount account) {
+        AuthCredential credential = GoogleAuthProvider.getCredential(account.getIdToken(), null);
+        auth.signInWithCredential(credential)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            // Sign-in successful, fetch store name and navigate to MainActivity
+                            user = auth.getCurrentUser();
+                            getStoreName();
+                        } else {
+                            // Sign-in failed
+                            Toast.makeText(LoginActivity.this, "Authentication failed: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+    }
+
 }

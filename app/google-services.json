@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "1088830853434-nrlscv9pv4t8ugqdf2hddp5qnbbq02ua.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "ca.gbc.managex",
+            "certificate_hash": "9f874247ca40a882248e734e04d00c51af3ac392"
+          }
+        },
+        {
           "client_id": "1088830853434-cnd3nbj8l6ek2nab0ba7k4g90s3lnb9j.apps.googleusercontent.com",
           "client_type": 3
         }

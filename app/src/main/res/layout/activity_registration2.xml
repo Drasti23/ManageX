@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/forget"
+    android:id="@+id/register2"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
     android:orientation="vertical"
     android:padding="16dp">
     <include layout="@layout/app_menu"/>
-
 
     <ScrollView
         android:layout_width="match_parent"
@@ -25,7 +24,7 @@
                 android:layout_width="300px"
                 android:layout_height="300px"
                 android:layout_gravity="center"
-                android:src="@drawable/img_2" />
+                android:src="@drawable/img" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -34,34 +33,44 @@
                 android:layout_margin="30px"
                 android:layout_marginBottom="16dp"
                 android:fontFamily="@font/lato_bold"
-                android:text="Forget Password"
+                android:text="Register a Store"
                 android:textColor="@color/bgBlue"
 
                 android:textSize="30sp"
                 android:textStyle="bold" />
 
-
             <EditText
-                android:id="@+id/etResetPassword"
+                android:id="@+id/etresName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:drawableEnd="@drawable/baseline_email_24"
                 android:fontFamily="@font/lato_bold"
-                android:hint="Enter an Email"
+                android:hint="Restaurant Name"
                 android:inputType="textEmailAddress"
                 android:padding="10dp"
                 android:textColor="@color/black"
                 android:textSize="20sp" />
 
+            <EditText
+                android:id="@+id/etresPhoneNumber"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/lato_bold"
+                android:hint="Phone Number"
+                android:inputType="phone"
+                android:padding="10dp"
+                android:textColor="@color/black"
+                android:textSize="20sp" />
+
             <Button
-                android:id="@+id/btnResetPassword"
+                android:id="@+id/btnRegisterStore"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:backgroundTint="@color/bgBlue"
                 android:fontFamily="@font/lato_bold"
-                android:text="Reset Password"
+                android:text="Register"
                 android:textColor="@android:color/white"
                 android:textSize="20sp" />
         </LinearLayout>
