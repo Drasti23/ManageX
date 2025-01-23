@@ -11,5 +11,6 @@
     </style>
     <style name="TextAppearance.AppCompat." parent="Base.Theme.ManageX">
         <item name="android:textSize">30sp</item>
+        <item name="autoSizeTextType">uniform</item>
     </style>
 </resources>

@@ -115,7 +115,7 @@ public class RegistrationActivity extends AppCompatActivity {
                                 else{
                                     Toast.makeText(RegistrationActivity.this,"There is a problem.",Toast.LENGTH_LONG).show();
                                 }
-                                Intent i = new Intent(RegistrationActivity.this, MainActivity.class);
+                                Intent i = new Intent(RegistrationActivity.this, Registration2.class);
                                 i.putExtra("store_eid",email);
                                 startActivity(i);
                                 finish();
