@@ -4,14 +4,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 import com.google.firebase.auth.FirebaseAuth;
 
+import ca.gbc.managex.AdminControl.AdminControlActivity;
 import ca.gbc.managex.R;
 import ca.gbc.managex.databinding.ActivitySettingBinding;
 import ca.gbc.managex.user.LoginActivity;
@@ -30,6 +27,14 @@ public class SettingActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 logout();
+            }
+        });
+        binding.cvOwner.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(SettingActivity.this, AdminControlActivity.class);
+                startActivity(i);
+
             }
         });
 
