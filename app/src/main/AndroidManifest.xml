@@ -13,6 +13,9 @@
         android:theme="@style/Theme.ManageX"
         tools:targetApi="31" >
         <activity
+            android:name=".AdminControl.EmployeeInfoActivity"
+            android:exported="false" />
+        <activity
             android:name=".AdminControl.AdminControlActivity"
             android:exported="false" />
         <activity
@@ -30,7 +33,6 @@
         <activity
             android:name=".user.LoginActivity"
             android:exported="false" />
-
         <activity
             android:name=".user.RegistrationActivity"
             android:exported="false" />
