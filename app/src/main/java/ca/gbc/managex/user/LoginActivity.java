@@ -71,14 +71,13 @@ public class LoginActivity extends AppCompatActivity {
                 storeEId = etEmail.getText().toString();
                 storePassword = etPassword.getText().toString();
 
-                if (!storeEId.isEmpty() || !storePassword.isEmpty()) {
+                if (!storeEId.isEmpty() && !storePassword.isEmpty()) {
                     loginUser(storeEId, storePassword);
                 } else {
                     Toast.makeText(LoginActivity.this, "Fill all the required fields.", Toast.LENGTH_LONG).show();
                 }
             }
         });
-
         googleLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

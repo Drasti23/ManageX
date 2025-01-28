@@ -5,6 +5,8 @@ import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,6 +41,7 @@ public class AddEmployeeDialog extends DialogFragment implements AdapterView
     private Button datePicker;
     private String selectedDate;
     private LocalDate localDate = LocalDate.now();
+    private AddEmployeeDialogBinding binding;
 
     public static final String TAG = "addEmployeeDialog";
     public static AddEmployeeDialog display(FragmentManager fragmentManager){
@@ -57,6 +60,7 @@ public class AddEmployeeDialog extends DialogFragment implements AdapterView
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
         View view = inflater.inflate(R.layout.add_employee_dialog,container,false);
+        binding = AddEmployeeDialogBinding.inflate(inflater,container,false);
         toolbar = view.findViewById(R.id.toolbar);
         spinner = view.findViewById(R.id.spinner);
         datePicker = (Button) view.findViewById(R.id.datePicker);
@@ -86,6 +90,25 @@ public class AddEmployeeDialog extends DialogFragment implements AdapterView
         ArrayAdapter<String> dataAdapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item,positions);
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(dataAdapter);
+
+        binding.datePicker.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+
+
 
 
     }
@@ -122,5 +145,8 @@ public class AddEmployeeDialog extends DialogFragment implements AdapterView
         dialog.show();
         datePicker.setText(selectedDate);
         return selectedDate;
+    }
+    public void checkErrorInTextView(){
+
     }
 }
