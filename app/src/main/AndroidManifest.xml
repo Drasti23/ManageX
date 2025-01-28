@@ -16,11 +16,6 @@
             android:name=".AdminControl.AdminControlActivity"
             android:exported="false" />
         <activity
-            android:name=".AdminControl.AdminControl"
-            android:exported="false"
-            android:label="@string/title_activity_admin_control"
-            android:theme="@style/Theme.ManageX.NoActionBar" />
-        <activity
             android:name=".setting.SettingActivity"
             android:exported="false" />
         <activity
@@ -35,10 +30,7 @@
         <activity
             android:name=".user.LoginActivity"
             android:exported="false" />
-        <activity
-            android:name=".ui.login.LoginActivity"
-            android:exported="false"
-            android:label="@string/title_activity_login" />
+
         <activity
             android:name=".user.RegistrationActivity"
             android:exported="false" />
