@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
@@ -13,192 +14,199 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:paddingEnd="16dp"
             android:paddingStart="6dp"
-            app:contentInsetStartWithNavigation="0dp"
-            />
+            android:paddingEnd="16dp"
+            app:contentInsetStartWithNavigation="0dp" />
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior" >
+        android:layout_height="match_parent">
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/textInputLayoutEmpFName"
-            style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
-            android:layout_width="300dp"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="5dp"
-            android:hint="First Name"
-            app:counterEnabled="false"
-            app:endIconMode="clear_text"
-            app:errorEnabled="true"
-            app:errorIconDrawable="@drawable/baseline_error_outline_24">
+            android:orientation="vertical">
 
-            <com.google.android.material.textfield.TextInputEditText
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textInputLayoutEmpFName"
+                style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="5dp"
+                android:hint="First Name"
+                app:counterEnabled="false"
+                app:endIconMode="clear_text"
+                app:errorEnabled="true"
+                app:errorIconDrawable="@drawable/baseline_error_outline_24">
 
-                android:id="@+id/etEmpFName"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:singleLine="true" />
+                <com.google.android.material.textfield.TextInputEditText
 
-        </com.google.android.material.textfield.TextInputLayout>
+                    android:id="@+id/etEmpFName"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:singleLine="true" />
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/textInputLayoutEmpLName"
-            style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
-            android:layout_width="300dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="15dp"
-            android:layout_marginEnd="32dp"
-            android:hint="Last Name"
-            app:endIconMode="clear_text"
-            app:errorEnabled="true"
-            app:errorIconDrawable="@drawable/baseline_error_outline_24">
+            </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etEmpLName"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:singleLine="true" />
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textInputLayoutEmpLName"
+                style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginEnd="32dp"
+                android:hint="Last Name"
+                app:endIconMode="clear_text"
+                app:errorEnabled="true"
+                app:errorIconDrawable="@drawable/baseline_error_outline_24">
 
-        </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etEmpLName"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:singleLine="true" />
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="300dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="15dp"
-            android:layout_marginEnd="32dp"
-            android:hint="Email"
-            app:errorEnabled="true"
-            app:endIconMode="clear_text">
+            </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etEmpEmail"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:inputType="textWebEmailAddress"
-                android:singleLine="true" />
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginEnd="32dp"
+                android:hint="Email"
+                app:endIconMode="clear_text"
+                app:errorEnabled="true">
 
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="300dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="15dp"
-            android:layout_marginEnd="32dp"
-            app:counterEnabled="true"
-            app:counterMaxLength="10"
-            android:hint="Contact Number"
-            app:endIconMode="clear_text"
-            app:errorEnabled="true"
-            app:prefixText="+1">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etEmpPhone"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:inputType="phone"
-                android:maxLength="10"
-                android:singleLine="true" />
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etEmpEmail"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:inputType="textWebEmailAddress"
+                    android:singleLine="true" />
 
 
-        </com.google.android.material.textfield.TextInputLayout>
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="300dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="15dp"
-            android:layout_marginEnd="32dp"
-            android:hint="Employee Code"
-            app:counterEnabled="true"
-            app:counterMaxLength="4"
-            app:endIconMode="clear_text"
-            app:errorEnabled="true"
-            >
+            </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etEmpCode"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:inputType="phone"
-                android:maxLength="10"
-                android:singleLine="true" />
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginEnd="32dp"
+                android:hint="Contact Number"
+                app:counterEnabled="true"
+                app:counterMaxLength="10"
+                app:errorEnabled="true"
+                app:prefixText="+1">
 
-
-        </com.google.android.material.textfield.TextInputLayout>
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="300dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="15dp"
-            android:layout_marginEnd="32dp"
-            android:hint="Code Password"
-            app:counterEnabled="true"
-            app:counterMaxLength="4"
-            app:endIconMode="clear_text"
-            app:errorEnabled="true"
-           >
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etEmpPass"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:inputType="phone"
-                android:maxLength="10"
-                android:singleLine="true" />
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etEmpPhone"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:inputType="phone"
+                    android:maxLength="10"
+                    android:singleLine="true" />
 
 
-        </com.google.android.material.textfield.TextInputLayout>
+            </com.google.android.material.textfield.TextInputLayout>
 
-        <!-- Text Label -->
-        <TextView
-            android:layout_width="300dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="15dp"
-            android:layout_marginBottom="5dp"
-            android:text="Position:" />
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginEnd="32dp"
+                android:hint="Employee Code"
+                app:counterEnabled="true"
+                app:counterMaxLength="4"
+                app:errorEnabled="true">
 
-        <!-- Spinner Element -->
-        <Spinner
-            android:id="@+id/spinner"
-            android:layout_width="300dp"
-            android:layout_height="50dp"
-            android:layout_gravity="center" />
-
-        <TextView
-            android:layout_width="300dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="15dp"
-            android:layout_marginBottom="5dp"
-            android:text="Joining Date" />
-
-        <Button
-            android:id="@+id/datePicker"
-            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-            android:layout_width="300dp"
-            android:layout_height="50dp"
-            android:layout_gravity="center"
-            android:text="Pick a date"
-            />
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etEmpCode"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:inputType="phone"
+                    android:maxLength="4"
+                    android:singleLine="true" />
 
 
-    </LinearLayout>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginEnd="32dp"
+                android:hint="Code Password"
+                app:counterEnabled="true"
+                app:counterMaxLength="4"
+                app:errorEnabled="true">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etEmpPass"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:inputType="phone"
+                    android:maxLength="4"
+                    android:singleLine="true" />
 
 
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- Text Label -->
+            <TextView
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="5dp"
+                android:text="Position:" />
+
+            <!-- Spinner Element -->
+            <Spinner
+                android:id="@+id/spinner"
+                android:layout_width="300dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center" />
+
+            <TextView
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="5dp"
+                android:text="Joining Date" />
+
+            <Button
+                android:id="@+id/datePicker"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:layout_width="300dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:text="Pick a date" />
+
+            <Button
+                android:id="@+id/btnSaveEmpData"
+                android:layout_width="300dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="15dp"
+                android:backgroundTint="@color/dark_blue"
+                android:text="Save"
+                android:textColor="@color/white" />
+        </LinearLayout>
+    </ScrollView>
+
+
+</LinearLayout>

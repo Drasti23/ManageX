@@ -1,8 +1,11 @@
 package ca.gbc.managex.AdminControl.Fragments;
 
+import android.content.Context;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -31,7 +34,7 @@ import ca.gbc.managex.AdminControl.Dialogs.AddEmployeeDialog;
 import ca.gbc.managex.R;
 import ca.gbc.managex.databinding.FragmentManageEmployeeBinding;
 
-public class ManageEmployeeFragment extends Fragment {
+public class ManageEmployeeFragment extends Fragment{
 
     FragmentManageEmployeeBinding binding;
     FirebaseAuth auth = FirebaseAuth.getInstance();
@@ -42,7 +45,6 @@ public class ManageEmployeeFragment extends Fragment {
     ArrayList<Employee> employeeList = new ArrayList<Employee>();
     private EmployeeCardAdapter adapter;
     private RecyclerView recyclerView;
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -59,45 +61,35 @@ public class ManageEmployeeFragment extends Fragment {
         fab = view.findViewById(R.id.addEmpFab);
 
         fab.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onClick(View view) {
-                AddEmployeeDialog.display(getParentFragmentManager());
-
-                Toast.makeText(getActivity(),"Added",Toast.LENGTH_SHORT).show();
-                sampleEmployeeAdded();
+                AddEmployeeDialog dialog = new AddEmployeeDialog();
+                dialog.show(getChildFragmentManager(), AddEmployeeDialog.TAG);
             }
         });
 
     return view;
     }
 
-    public void addEmployeeToDatabase(Employee employee){
-        reference.child("employeeInfo").child(String.valueOf(employee.getId())).setValue(employee);
+    public void getEmpDataFromFirebase() {
+        reference.child("employeeInfo").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                employeeList.clear(); // Clear the list before adding new items
+                for (DataSnapshot child : snapshot.getChildren()) {
+                    Employee employee = child.getValue(Employee.class);
+                    employeeList.add(employee);
+                }
+                adapter.notifyDataSetChanged(); // Update RecyclerView
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(getContext(), "Failed to load employees", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
-    public void sampleEmployeeAdded(){
-
-        Employee employee = new Employee(1,"First","Last","email.com","+12345678","12-2-2","chef",5050,5050);
-        addEmployeeToDatabase(employee);
-
-    }
-
-    public void getEmpDataFromFirebase(){
-      reference.child("employeeInfo").addValueEventListener(new ValueEventListener() {
-          @Override
-          public void onDataChange(@NonNull DataSnapshot snapshot) {
-              Iterable<DataSnapshot> children = snapshot.getChildren();
-              for (DataSnapshot child: children) {
-                  Employee employee = child.getValue(Employee.class);
-                  employeeList.add(employee);
-              }
-              adapter.notifyDataSetChanged();
-          }
-
-          @Override
-          public void onCancelled(@NonNull DatabaseError error) {
-
-          }
-      });
-    }
 }
+

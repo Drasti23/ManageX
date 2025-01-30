@@ -1,71 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".AdminControl.AdminControlActivity">
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    tools:context=".MainActivity">
+    <include layout="@layout/app_menu"
+        android:id="@+id/menu"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
+
+    <FrameLayout
+        android:id="@+id/flFragment"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="15dp"
-        android:gravity="center_vertical"
-        >
-        <ImageView
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:id="@+id/backButton"
-            android:src="@drawable/baseline_arrow_back_24"/>
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintTop_toBottomOf="@id/menu"
+        app:layout_constraintStart_toStartOf="parent"
+        />
 
-
-        <TextView
-            android:layout_marginStart="35dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/lato_bold"
-            android:text="@string/app_name"
-            android:textSize="30sp"
-            android:textColor="@color/black"
-            android:ellipsize="end"
-            android:singleLine="true"
-
-            />
-
-
-    </LinearLayout>
-
-    <com.google.android.material.tabs.TabLayout
-        android:id="@+id/tabs"
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNavigationView"
         android:layout_width="match_parent"
-        android:animateLayoutChanges="true"
-        app:tabIndicatorColor="@color/design_default_color_error"
-        app:tabSelectedTextColor="@color/black"
-        app:tabTextColor="@color/grayHigh"
-        android:layout_height="100dp">
-        <com.google.android.material.tabs.TabItem
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Monday" />
-
-        <com.google.android.material.tabs.TabItem
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Tuesday" />
-
-        <com.google.android.material.tabs.TabItem
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Wednesday" />
-
-    </com.google.android.material.tabs.TabLayout>
-
-    <androidx.viewpager2.widget.ViewPager2
-        android:id="@+id/viewPager2"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="75dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:menu="@menu/bottom_nav_menu"/>
 
 
-</LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,12 +1,13 @@
 package ca.gbc.managex.AdminControl.Dialogs;
 
-import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,14 +23,26 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import ca.gbc.managex.AdminControl.Classes.Employee;
 import ca.gbc.managex.R;
 import ca.gbc.managex.databinding.AddEmployeeDialogBinding;
+import lombok.extern.slf4j.Slf4j;
 
 @RequiresApi(api = Build.VERSION_CODES.O)
 public class AddEmployeeDialog extends DialogFragment implements AdapterView
@@ -38,10 +51,17 @@ public class AddEmployeeDialog extends DialogFragment implements AdapterView
     private Toolbar toolbar;
     private Spinner spinner;
 
-    private Button datePicker;
-    private String selectedDate;
+    private Button datePicker,saveEmployee;
+    private String selectedDate,selectedPosition,firstName,lastName,contactNumber,email;
+    public TextInputEditText etFName,etLName,etContactNumber,etEmail,etPass,etCode;
+    private int code,pass;
     private LocalDate localDate = LocalDate.now();
     private AddEmployeeDialogBinding binding;
+    private int count;
+    FirebaseAuth auth = FirebaseAuth.getInstance();
+    FirebaseUser user = auth.getCurrentUser();
+    FirebaseDatabase database = FirebaseDatabase.getInstance();
+    DatabaseReference reference = database.getReference().child("Users").child(user.getUid());
 
     public static final String TAG = "addEmployeeDialog";
     public static AddEmployeeDialog display(FragmentManager fragmentManager){
@@ -49,6 +69,10 @@ public class AddEmployeeDialog extends DialogFragment implements AdapterView
         dialog.show(fragmentManager,TAG);
         return dialog;
     }
+    public interface EmployeeCountCallback {
+        void onCountRetrieved(int count);
+    }
+
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -63,7 +87,14 @@ public class AddEmployeeDialog extends DialogFragment implements AdapterView
         binding = AddEmployeeDialogBinding.inflate(inflater,container,false);
         toolbar = view.findViewById(R.id.toolbar);
         spinner = view.findViewById(R.id.spinner);
+        saveEmployee = view.findViewById(R.id.btnSaveEmpData);
         datePicker = (Button) view.findViewById(R.id.datePicker);
+        etFName = view.findViewById(R.id.etEmpFName);
+        etLName = view.findViewById(R.id.etEmpLName);
+        etContactNumber = view.findViewById(R.id.etEmpPhone);
+        etCode = view.findViewById(R.id.etEmpCode);
+        etPass = view.findViewById(R.id.etEmpPass);
+        etEmail = view.findViewById(R.id.etEmpEmail);
 
         spinner.setOnItemSelectedListener(this);
         return view;
@@ -72,16 +103,18 @@ public class AddEmployeeDialog extends DialogFragment implements AdapterView
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        toolbar.setNavigationOnClickListener(v-> dismiss());
         toolbar.inflateMenu(R.menu.dialog_menu_add_emp);
         toolbar.setNavigationIcon(R.drawable.baseline_close_24);
+        toolbar.setNavigationOnClickListener(v-> dismiss());
         toolbar.setOnMenuItemClickListener(item->{
             dismiss();
             return  true;
         });
         datePicker.setOnClickListener(v->{
-            datePicker.setText(openDialog());
+            datePicker.setText(openDatePickerDialog());
         });
+
+        //list of positions
         List<String> positions = new ArrayList<String>();
         positions.add("Crew");
         positions.add("Manager");
@@ -90,16 +123,76 @@ public class AddEmployeeDialog extends DialogFragment implements AdapterView
         ArrayAdapter<String> dataAdapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item,positions);
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(dataAdapter);
+        //error checking
+        checkErrorInEditText(etContactNumber,10);
+        checkErrorInEditText(etPass,4);
+        checkErrorInEditText(etCode,4);
+        saveEmployee.setOnClickListener(v -> {
+            firstName = etFName.getText().toString();
+            lastName = etLName.getText().toString();
+            contactNumber = etContactNumber.getText().toString();
+            email = etEmail.getText().toString();
+            String inputCode = etCode.getText().toString();
+            String inputPass = etPass.getText().toString();
 
-        binding.datePicker.addTextChangedListener(new TextWatcher() {
+            if (!(inputCode.isEmpty() || inputPass.isEmpty())) {
+                code = Integer.parseInt(inputCode);
+                pass = Integer.parseInt(inputPass);
+
+                if (firstName.isEmpty() || lastName.isEmpty() || contactNumber.isEmpty() || email.isEmpty() || selectedDate == null || selectedPosition == null) {
+                    Toast.makeText(getContext(), "Please fill all required fields", Toast.LENGTH_SHORT).show();
+                } else {
+                    getNumberOfEmployee(count -> {
+                        int newId = count + 1; // Ensure ID is updated asynchronously
+                        Employee employee = new Employee(newId, firstName, lastName, email, contactNumber, selectedDate, selectedPosition, code, pass);
+                        reference.child("employeeInfo").child(String.valueOf(newId)).setValue(employee);
+                        dismiss();
+                    });
+                }
+            } else {
+                Toast.makeText(getContext(), "Please fill required fields", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
+
+    }
+
+
+
+    @Override
+    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+        selectedPosition = adapterView.getItemAtPosition(i).toString();
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> adapterView) {
+
+    }
+
+    private String openDatePickerDialog(){
+        DatePickerDialog dialog = new DatePickerDialog(getContext(), new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
+                selectedDate = i + "/" + i1 + "/"+ i2;
+                Toast.makeText(getContext(),"Date selected : " + selectedDate,Toast.LENGTH_SHORT).show();
+            }
+        },localDate.getYear(),localDate.getMonthValue(),localDate.getDayOfMonth());
+        dialog.show();
+        datePicker.setText(selectedDate);
+        return selectedDate;
+    }
+    public void checkErrorInEditText(TextInputEditText et, int limit){
+        et.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
             }
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
+            if(charSequence.length() < limit){
+                et.setError("required digit : " + limit);
+            }
             }
 
             @Override
@@ -107,10 +200,6 @@ public class AddEmployeeDialog extends DialogFragment implements AdapterView
 
             }
         });
-
-
-
-
     }
 
     @Override
@@ -124,29 +213,23 @@ public class AddEmployeeDialog extends DialogFragment implements AdapterView
         }
     }
 
-    @Override
-    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-        String item = adapterView.getItemAtPosition(i).toString();
-        Toast.makeText(adapterView.getContext(), "Selected: " + item, Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
-    public void onNothingSelected(AdapterView<?> adapterView) {
-
-    }
-
-    private String openDialog(){
-        DatePickerDialog dialog = new DatePickerDialog(getContext(), new DatePickerDialog.OnDateSetListener() {
+    public void getNumberOfEmployee(EmployeeCountCallback callback) {
+        reference.child("employeeInfo").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
-                selectedDate = i + "/" + i1 + "/"+ i2;
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                int numOfEmp = (int) snapshot.getChildrenCount();
+                callback.onCountRetrieved(numOfEmp);
             }
-        },localDate.getYear(),localDate.getMonthValue(),localDate.getDayOfMonth());
-        dialog.show();
-        datePicker.setText(selectedDate);
-        return selectedDate;
-    }
-    public void checkErrorInTextView(){
 
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                callback.onCountRetrieved(0); // Default to 0 if error occurs
+            }
+        });
     }
+
+
+
+
+
 }
