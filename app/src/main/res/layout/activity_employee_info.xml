@@ -5,7 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
+    android:id="@+id/main"
     tools:context=".AdminControl.EmployeeInfoActivity">
+    <include layout="@layout/app_menu"/>
 
     <!-- Title Section -->
     <TextView
@@ -13,7 +15,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="60dp"
         android:text="Employee Details"
         android:textSize="20sp"
         android:textStyle="bold"
@@ -89,7 +91,7 @@
                         android:textStyle="bold" />
 
                     <TextView
-                        android:id="@+id/tvEmpCodeCard"
+                        android:id="@+id/tvEmpCode"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="8dp"
@@ -119,7 +121,7 @@
                         android:textStyle="bold" />
 
                     <TextView
-                        android:id="@+id/tvPosition"
+                        android:id="@+id/tvEmpPosition"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="8dp"
@@ -134,7 +136,7 @@
                         android:textStyle="bold" />
 
                     <TextView
-                        android:id="@+id/tvPhoneNum"
+                        android:id="@+id/tvEmpPhoneNum"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="8dp"
@@ -149,7 +151,7 @@
                         android:textStyle="bold" />
 
                     <TextView
-                        android:id="@+id/tvEmail"
+                        android:id="@+id/tvEmpEmail"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="8dp"
@@ -164,7 +166,7 @@
                         android:textStyle="bold" />
 
                     <TextView
-                        android:id="@+id/tvJoiningDate"
+                        android:id="@+id/tvEmpJoiningDate"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="8dp"
@@ -189,18 +191,29 @@
         app:layout_constraintStart_toStartOf="parent">
 
         <Button
-            android:id="@+id/btnEdit"
+            android:id="@+id/btnEmpEdit"
             style="@style/Widget.MaterialComponents.Button.OutlinedButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_margin="2dp"
             android:layout_weight="1"
             android:text="Edit" />
 
         <Button
-            android:id="@+id/btnDelete"
+            android:id="@+id/btnEmpAttach"
             style="@style/Widget.MaterialComponents.Button.OutlinedButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_margin="2dp"
+            android:layout_weight="1"
+            android:text="Attach" />
+
+        <Button
+            android:id="@+id/btnEmpDelete"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="2dp"
             android:layout_weight="1"
             android:text="Delete" />
     </LinearLayout>

@@ -2,6 +2,9 @@ package ca.gbc.managex.AdminControl;
 
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -12,6 +15,7 @@ import ca.gbc.managex.R;
 public class AdminControlActivity extends AppCompatActivity  implements BottomNavigationView
         .OnNavigationItemSelectedListener{
     BottomNavigationView bottomNavigationView;
+    ImageView back;
 
 
     @Override
@@ -25,6 +29,14 @@ public class AdminControlActivity extends AppCompatActivity  implements BottomNa
         bottomNavigationView
                 .setOnNavigationItemSelectedListener(this);
         bottomNavigationView.setSelectedItemId(R.id.person);
+        back = findViewById(R.id.backButton);
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+
     }
     ManageEmployeeFragment firstFragment = new ManageEmployeeFragment();
     ManagePOSFragment secondFragment = new ManagePOSFragment();

@@ -27,7 +27,7 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
         <TextView
-        android:id="@+id/tvEmpCodeCard"
+        android:id="@+id/tvEmpCode"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:gravity="center_vertical"

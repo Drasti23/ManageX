@@ -52,7 +52,7 @@ public class ManageEmployeeFragment extends Fragment{
         View view = inflater.inflate(R.layout.fragment_manage_employee,container,false);
         binding = FragmentManageEmployeeBinding.inflate(inflater,container,false);
         recyclerView = view.findViewById(R.id.employeeRecyclerView);
-        adapter = new EmployeeCardAdapter(employeeList);
+        adapter = new EmployeeCardAdapter(getActivity(),employeeList);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         getEmpDataFromFirebase();
@@ -73,6 +73,7 @@ public class ManageEmployeeFragment extends Fragment{
     }
 
     public void getEmpDataFromFirebase() {
+        employeeList.clear();
         reference.child("employeeInfo").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -91,5 +92,10 @@ public class ManageEmployeeFragment extends Fragment{
         });
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        getEmpDataFromFirebase();
+    }
 }
 

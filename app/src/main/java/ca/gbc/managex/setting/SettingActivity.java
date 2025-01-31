@@ -3,6 +3,7 @@ package ca.gbc.managex.setting;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -15,6 +16,7 @@ import ca.gbc.managex.user.LoginActivity;
 
 public class SettingActivity extends AppCompatActivity {
     ActivitySettingBinding binding;
+    ImageView back;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,6 +24,13 @@ public class SettingActivity extends AppCompatActivity {
         setContentView(R.layout.activity_setting);
         binding = ActivitySettingBinding.inflate(getLayoutInflater());
         setContentView(binding.main);
+        back = findViewById(R.id.backButton);
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
         binding.cvLogout.setOnClickListener(new View.OnClickListener() {
             @Override
