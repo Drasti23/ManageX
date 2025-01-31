@@ -195,6 +195,14 @@
             android:layout_weight="1"
             android:text="Delete"
             style="@style/Widget.MaterialComponents.Button.OutlinedButton" />
+
+        <Button
+            android:id="@+id/btnAttach"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Attach"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

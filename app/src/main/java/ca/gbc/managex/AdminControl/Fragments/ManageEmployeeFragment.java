@@ -1,10 +1,11 @@
 package ca.gbc.managex.AdminControl.Fragments;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
@@ -12,7 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -43,33 +44,33 @@ public class ManageEmployeeFragment extends Fragment {
     private EmployeeCardAdapter adapter;
     private RecyclerView recyclerView;
 
+
+
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_manage_employee, container, false);
 
-        View view = inflater.inflate(R.layout.fragment_manage_employee,container,false);
-        binding = FragmentManageEmployeeBinding.inflate(inflater,container,false);
-        recyclerView = view.findViewById(R.id.employeeRecyclerView);
-        adapter = new EmployeeCardAdapter(employeeList);
-        recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        getEmpDataFromFirebase();
-        
-
-        fab = view.findViewById(R.id.addEmpFab);
+        FloatingActionButton fab = view.findViewById(R.id.addEmpfab); // Correct way
 
         fab.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("NewApi")
             @Override
             public void onClick(View view) {
-                AddEmployeeDialog.display(getParentFragmentManager());
+                AddEmployeeDialog.display(getChildFragmentManager());
 
-                Toast.makeText(getActivity(),"Added",Toast.LENGTH_SHORT).show();
+                if (getActivity() != null) {
+                    Toast.makeText(getActivity(), "Added", Toast.LENGTH_SHORT).show();
+                }
+
                 sampleEmployeeAdded();
             }
         });
 
-    return view;
+        return view;
     }
+
+
+
 
     public void addEmployeeToDatabase(Employee employee){
         reference.child("employeeInfo").child(String.valueOf(employee.getId())).setValue(employee);
@@ -83,21 +84,21 @@ public class ManageEmployeeFragment extends Fragment {
     }
 
     public void getEmpDataFromFirebase(){
-      reference.child("employeeInfo").addValueEventListener(new ValueEventListener() {
-          @Override
-          public void onDataChange(@NonNull DataSnapshot snapshot) {
-              Iterable<DataSnapshot> children = snapshot.getChildren();
-              for (DataSnapshot child: children) {
-                  Employee employee = child.getValue(Employee.class);
-                  employeeList.add(employee);
-              }
-              adapter.notifyDataSetChanged();
-          }
+        reference.child("employeeInfo").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Iterable<DataSnapshot> children = snapshot.getChildren();
+                for (DataSnapshot child: children) {
+                    Employee employee = child.getValue(Employee.class);
+                    employeeList.add(employee);
+                }
+                adapter.notifyDataSetChanged();
+            }
 
-          @Override
-          public void onCancelled(@NonNull DatabaseError error) {
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
 
-          }
-      });
+            }
+        });
     }
 }

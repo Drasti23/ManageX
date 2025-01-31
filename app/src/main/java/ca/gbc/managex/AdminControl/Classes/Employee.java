@@ -107,4 +107,11 @@ public class Employee {
     private int empCode;
     private int empPass;
 
+    public String getName() {
+        return firstName + lastName;
+    }
+
+    public String getRole() {
+        return position;
+    }
 }

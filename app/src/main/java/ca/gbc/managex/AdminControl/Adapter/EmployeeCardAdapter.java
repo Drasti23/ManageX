@@ -1,5 +1,7 @@
 package ca.gbc.managex.AdminControl.Adapter;
 
+import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,33 +11,43 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import ca.gbc.managex.AdminControl.Classes.Employee;
+import ca.gbc.managex.AdminControl.EmployeeInfoActivity;
 import ca.gbc.managex.R;
 
-public class EmployeeCardAdapter extends RecyclerView.Adapter<EmployeeCardAdapter.ItemViewHolder>{
+public class EmployeeCardAdapter extends RecyclerView.Adapter<EmployeeCardAdapter.ViewHolder> {
+    private Context context;
+    private List<Employee> employeeList;
 
-
-    private ArrayList<Employee> employeeList;
-
-    public EmployeeCardAdapter(ArrayList<Employee> employeeList) {
+    // Constructor to pass context and list of employees
+    public EmployeeCardAdapter(Context context, List<Employee> employeeList) {
+        this.context = context;
         this.employeeList = employeeList;
     }
 
     @NonNull
     @Override
-    public ItemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.employee_card,parent,false);
-        return new ItemViewHolder(view);
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(context).inflate(R.layout.employee_card, parent, false);
+        return new ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ItemViewHolder holder, int position) {
-    Employee employee = employeeList.get(position);
-    String name = employee.getFirstName().concat(" "+ employee.getLastName());
-    holder.name.setText(name);
-    holder.code.setText(employee.getEmpCode()+"");
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        Employee employee = employeeList.get(position);
+        holder.nameTextView.setText(employee.getName());
+        holder.roleTextView.setText(employee.getRole());
+
+        // Handle the item click to open the employee detail activity
+        holder.itemView.setOnClickListener(v -> {
+            Intent intent = new Intent(context, EmployeeInfoActivity.class);
+            intent.putExtra("EMPLOYEE_ID", employee.getId());
+            intent.putExtra("EMPLOYEE_NAME", employee.getName());
+            intent.putExtra("EMPLOYEE_ROLE", employee.getRole());
+            context.startActivity(intent);
+        });
     }
 
     @Override
@@ -43,13 +55,15 @@ public class EmployeeCardAdapter extends RecyclerView.Adapter<EmployeeCardAdapte
         return employeeList.size();
     }
 
-    public static class ItemViewHolder extends RecyclerView.ViewHolder{
+    // ViewHolder class to bind views
+    public static class ViewHolder extends RecyclerView.ViewHolder {
+        TextView nameTextView, roleTextView;
 
-        TextView name,code;
-        public ItemViewHolder(@NonNull View itemView) {
+        public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            name = itemView.findViewById(R.id.tvEmpNameCard);
-            code = itemView.findViewById(R.id.tvEmpCodeCard);
+            nameTextView = itemView.findViewById(R.id.employee_name);
+            roleTextView = itemView.findViewById(R.id.employee_role);
         }
     }
 }
+
