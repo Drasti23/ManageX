@@ -1,6 +1,5 @@
 package ca.gbc.managex.AdminControl.Fragments;
 
-import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
 
@@ -25,10 +24,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import ca.gbc.managex.AdminControl.Adapter.EmployeeCardAdapter;
-import ca.gbc.managex.AdminControl.AdminControlActivity;
 import ca.gbc.managex.AdminControl.Classes.Employee;
 import ca.gbc.managex.AdminControl.Dialogs.AddEmployeeDialog;
 import ca.gbc.managex.R;
@@ -48,6 +45,7 @@ public class ManageEmployeeFragment extends Fragment{
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
 
         View view = inflater.inflate(R.layout.fragment_manage_employee,container,false);
         binding = FragmentManageEmployeeBinding.inflate(inflater,container,false);

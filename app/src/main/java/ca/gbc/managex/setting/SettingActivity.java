@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.firebase.auth.FirebaseAuth;
 
 import ca.gbc.managex.AdminControl.AdminControlActivity;
+import ca.gbc.managex.ManagerControl.ManagerControlActivity;
 import ca.gbc.managex.R;
 import ca.gbc.managex.databinding.ActivitySettingBinding;
 import ca.gbc.managex.user.LoginActivity;
@@ -44,6 +45,13 @@ public class SettingActivity extends AppCompatActivity {
                 Intent i = new Intent(SettingActivity.this, AdminControlActivity.class);
                 startActivity(i);
 
+            }
+        });
+        binding.cvManager.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(SettingActivity.this, ManagerControlActivity.class);
+                startActivity(i);
             }
         });
 

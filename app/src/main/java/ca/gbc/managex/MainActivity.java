@@ -11,6 +11,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import ca.gbc.managex.AdminControl.Dialogs.LoginDialog;
 import ca.gbc.managex.POS.MainPOSActivity;
 import ca.gbc.managex.databinding.ActivityMainBinding;
 import ca.gbc.managex.setting.SettingActivity;
@@ -49,7 +50,8 @@ startActivity(i);
         binding.llTimeRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                LoginDialog alert = new LoginDialog();
+                alert.showDialog(MainActivity.this);
             }
         });
 

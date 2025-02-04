@@ -13,5 +13,5 @@
     <color name="light_blue">#728ABF</color> <!-- Lighter blue for the border/background of the button -->
     <color name="textColor">#FFFFFF</color> <!-- White text color -->
     <color name="avatarColor">#F1F5FB</color> <!-- Light blueish background for the avatar area -->
-    <color name="avatarOutline">#BFCFEA</color> <!-- Outline for the avatar -->
+    <color name="avatarOutline">#A0CD65</color> <!-- Outline for the avatar -->
 </resources>

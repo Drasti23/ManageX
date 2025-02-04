@@ -57,7 +57,6 @@ public class AddEmployeeDialog extends DialogFragment implements AdapterView
     private int code,pass;
     private LocalDate localDate = LocalDate.now();
     private AddEmployeeDialogBinding binding;
-    private int count;
     FirebaseAuth auth = FirebaseAuth.getInstance();
     FirebaseUser user = auth.getCurrentUser();
     FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -106,10 +105,6 @@ public class AddEmployeeDialog extends DialogFragment implements AdapterView
         toolbar.inflateMenu(R.menu.dialog_menu_add_emp);
         toolbar.setNavigationIcon(R.drawable.baseline_close_24);
         toolbar.setNavigationOnClickListener(v-> dismiss());
-        toolbar.setOnMenuItemClickListener(item->{
-            dismiss();
-            return  true;
-        });
         datePicker.setOnClickListener(v->{
             datePicker.setText(openDatePickerDialog());
         });
@@ -145,6 +140,7 @@ public class AddEmployeeDialog extends DialogFragment implements AdapterView
                     getNumberOfEmployee(count -> {
                         int newId = count + 1; // Ensure ID is updated asynchronously
                         Employee employee = new Employee(newId, firstName, lastName, email, contactNumber, selectedDate, selectedPosition, code, pass);
+                        //Employee saved yo
                         reference.child("employeeInfo").child(String.valueOf(newId)).setValue(employee);
                         dismiss();
                     });
@@ -214,16 +210,24 @@ public class AddEmployeeDialog extends DialogFragment implements AdapterView
     }
 
     public void getNumberOfEmployee(EmployeeCountCallback callback) {
-        reference.child("employeeInfo").addListenerForSingleValueEvent(new ValueEventListener() {
+        reference.child("employeeInfo").orderByKey().limitToLast(1).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                int numOfEmp = (int) snapshot.getChildrenCount();
-                callback.onCountRetrieved(numOfEmp);
+                if (snapshot.exists()) {
+                    for (DataSnapshot emp : snapshot.getChildren()) {
+                        Employee employee = emp.getValue(Employee.class);
+                        if (employee != null) {
+                            callback.onCountRetrieved(employee.getId());
+                        }
+                    }
+                } else {
+                    callback.onCountRetrieved(0);
+                }
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                callback.onCountRetrieved(0); // Default to 0 if error occurs
+
             }
         });
     }
