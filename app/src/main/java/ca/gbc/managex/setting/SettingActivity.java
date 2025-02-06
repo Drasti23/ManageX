@@ -14,6 +14,7 @@ import ca.gbc.managex.ManagerControl.ManagerControlActivity;
 import ca.gbc.managex.R;
 import ca.gbc.managex.databinding.ActivitySettingBinding;
 import ca.gbc.managex.user.LoginActivity;
+import ca.gbc.managex.ManageRestaurantProfile.ManageRestaurantProfile; // Import for ManageRestaurantProfile
 
 public class SettingActivity extends AppCompatActivity {
     ActivitySettingBinding binding;
@@ -25,6 +26,7 @@ public class SettingActivity extends AppCompatActivity {
         setContentView(R.layout.activity_setting);
         binding = ActivitySettingBinding.inflate(getLayoutInflater());
         setContentView(binding.main);
+
         back = findViewById(R.id.backButton);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -39,14 +41,15 @@ public class SettingActivity extends AppCompatActivity {
                 logout();
             }
         });
+
         binding.cvOwner.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(SettingActivity.this, AdminControlActivity.class);
                 startActivity(i);
-
             }
         });
+
         binding.cvManager.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -55,9 +58,17 @@ public class SettingActivity extends AppCompatActivity {
             }
         });
 
+        // Link cvResProfile to ManageRestaurantProfile activity
+        binding.cvResProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(SettingActivity.this, ManageRestaurantProfile.class);
+                startActivity(i);
+            }
+        });
     }
 
-    public void logout(){
+    public void logout() {
         FirebaseAuth.getInstance().signOut();
         Intent i = new Intent(SettingActivity.this, LoginActivity.class);
         startActivity(i);
