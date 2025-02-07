@@ -16,6 +16,9 @@
         android:theme="@style/Theme.ManageX"
         tools:targetApi="31">
         <activity
+            android:name=".ManagerControl.EditAvailability"
+            android:exported="false" />
+        <activity
             android:name=".ManageRestaurantProfile.ManageRestaurantProfile"
             android:exported="false" />
         <activity

@@ -28,7 +28,6 @@ public class ManageRestaurantProfile extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_manage_restaurant_profile);
 
-        // Initialize UI
         etRestaurantName = findViewById(R.id.editRestaurantName);
         etContactNumber = findViewById(R.id.editContactNumber);
         etRestaurantEmail = findViewById(R.id.editRestaurantEmail);

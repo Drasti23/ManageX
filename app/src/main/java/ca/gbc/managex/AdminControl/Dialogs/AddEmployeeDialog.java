@@ -52,8 +52,8 @@ public class AddEmployeeDialog extends DialogFragment implements AdapterView
     private Spinner spinner;
 
     private Button datePicker,saveEmployee;
-    private String selectedDate,selectedPosition,firstName,lastName,contactNumber,email;
-    public TextInputEditText etFName,etLName,etContactNumber,etEmail,etPass,etCode;
+    private String selectedDate,selectedPosition,firstName,lastName,contactNumber,email, employeeType;
+    public TextInputEditText etFName,etLName,etContactNumber,etEmail,etPass,etCode,etEmployeeType;
     private int code,pass;
     private LocalDate localDate = LocalDate.now();
     private AddEmployeeDialogBinding binding;
@@ -94,6 +94,7 @@ public class AddEmployeeDialog extends DialogFragment implements AdapterView
         etCode = view.findViewById(R.id.etEmpCode);
         etPass = view.findViewById(R.id.etEmpPass);
         etEmail = view.findViewById(R.id.etEmpEmail);
+        etEmployeeType = view.findViewById(R.id.etEmpType);
 
         spinner.setOnItemSelectedListener(this);
         return view;
@@ -122,11 +123,13 @@ public class AddEmployeeDialog extends DialogFragment implements AdapterView
         checkErrorInEditText(etContactNumber,10);
         checkErrorInEditText(etPass,4);
         checkErrorInEditText(etCode,4);
+
         saveEmployee.setOnClickListener(v -> {
             firstName = etFName.getText().toString();
             lastName = etLName.getText().toString();
             contactNumber = etContactNumber.getText().toString();
             email = etEmail.getText().toString();
+            employeeType = etEmployeeType.getText().toString();
             String inputCode = etCode.getText().toString();
             String inputPass = etPass.getText().toString();
 
@@ -134,12 +137,12 @@ public class AddEmployeeDialog extends DialogFragment implements AdapterView
                 code = Integer.parseInt(inputCode);
                 pass = Integer.parseInt(inputPass);
 
-                if (firstName.isEmpty() || lastName.isEmpty() || contactNumber.isEmpty() || email.isEmpty() || selectedDate == null || selectedPosition == null) {
+                if (firstName.isEmpty() || lastName.isEmpty() || contactNumber.isEmpty() || email.isEmpty() || selectedDate == null || selectedPosition == null || employeeType == null) {
                     Toast.makeText(getContext(), "Please fill all required fields", Toast.LENGTH_SHORT).show();
                 } else {
                     getNumberOfEmployee(count -> {
                         int newId = count + 1; // Ensure ID is updated asynchronously
-                        Employee employee = new Employee(newId, firstName, lastName, email, contactNumber, selectedDate, selectedPosition, code, pass);
+                        Employee employee = new Employee(newId, firstName, lastName, email, contactNumber, selectedDate, selectedPosition, employeeType, code, pass);
                         //Employee saved yo
                         reference.child("employeeInfo").child(String.valueOf(newId)).setValue(employee);
                         dismiss();
