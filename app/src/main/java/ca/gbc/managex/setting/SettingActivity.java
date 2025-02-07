@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.firebase.auth.FirebaseAuth;
 
 import ca.gbc.managex.AdminControl.AdminControlActivity;
+import ca.gbc.managex.ManageRestaurantProfile.ManageRestaurantProfile;
 import ca.gbc.managex.ManagerControl.ManagerControlActivity;
 import ca.gbc.managex.R;
 import ca.gbc.managex.databinding.ActivitySettingBinding;
@@ -30,6 +31,14 @@ public class SettingActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 finish();
+            }
+        });
+        binding.cvResProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(SettingActivity.this, ManageRestaurantProfile.class);
+                startActivity(i);
+
             }
         });
 

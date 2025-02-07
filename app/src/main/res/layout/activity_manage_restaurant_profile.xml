@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    android:background="@color/white">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:background="@drawable/box_background"
+        android:elevation="4dp">
+
+        <ImageView
+            android:id="@+id/backButton"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginEnd="8dp"
+            android:src="@drawable/baseline_arrow_back_24" />
+
+        <!-- Title -->
+        <TextView
+            android:id="@+id/tvHeader"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Restaurant Profile"
+            android:textSize="24sp"
+            android:fontFamily="sans-serif-medium"
+            android:textColor="@color/black"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="16dp" />
+
+        <!-- Input Fields -->
+        <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Restaurant Name" android:textSize="16sp" android:layout_marginTop="8dp" android:textColor="@color/black" />
+        <EditText android:id="@+id/editRestaurantName" android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="Enter restaurant name" android:inputType="text" android:textColorHint="@color/grayHigh" android:background="@android:color/transparent" android:textColor="@color/grayHigh" android:enabled="false" />
+
+        <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Contact Number" android:textSize="16sp" android:layout_marginTop="16dp" android:textColor="@color/black" />
+        <EditText android:id="@+id/editContactNumber" android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="Enter contact number" android:inputType="phone" android:textColorHint="@color/grayHigh" android:background="@android:color/transparent" android:textColor="@color/black" android:enabled="false" />
+
+        <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Restaurant Email" android:textSize="16sp" android:layout_marginTop="16dp" android:textColor="@color/black" />
+        <EditText android:id="@+id/editRestaurantEmail" android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="Enter restaurant email" android:inputType="textEmailAddress" android:textColorHint="@color/grayHigh" android:background="@android:color/transparent" android:textColor="@color/black" android:enabled="false" />
+
+        <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Cuisine" android:textSize="16sp" android:layout_marginTop="16dp" android:textColor="@color/black" />
+        <EditText android:id="@+id/editRestaurantCuisine" android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="Enter cuisine type" android:inputType="text" android:textColorHint="@color/grayHigh" android:background="@android:color/transparent" android:textColor="@color/black" android:enabled="false" />
+
+        <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Address" android:textSize="16sp" android:layout_marginTop="16dp" android:textColor="@color/black" />
+        <EditText android:id="@+id/editRestaurantAddress" android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="Enter address" android:inputType="text" android:textColorHint="@color/grayHigh" android:background="@android:color/transparent" android:textColor="@color/black" android:enabled="false" />
+
+        <!-- Action Buttons -->
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="end" android:layout_marginTop="24dp">
+            <Button android:id="@+id/btnEditProfile" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Edit" android:backgroundTint="@color/grayHigh" android:textColor="@color/white" android:layout_marginEnd="8dp" />
+            <Button android:id="@+id/btnSaveProfile" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Save" android:backgroundTint="@color/grayHigh" android:textColor="@color/white" android:layout_marginEnd="8dp" />
+            <Button android:id="@+id/btnCancelProfile" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Cancel" android:backgroundTint="@color/grayHigh" android:textColor="@color/white" />
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>

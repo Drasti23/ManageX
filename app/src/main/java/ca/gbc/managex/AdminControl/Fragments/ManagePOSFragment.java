@@ -90,4 +90,10 @@ public class ManagePOSFragment extends Fragment {
         super.onStart();
         getSectionList();
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        getSectionList();
+    }
 }

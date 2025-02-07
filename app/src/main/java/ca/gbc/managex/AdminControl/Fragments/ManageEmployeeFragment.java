@@ -90,9 +90,18 @@ public class ManageEmployeeFragment extends Fragment{
         });
     }
 
+
+
     @Override
     public void onStart() {
         super.onStart();
+        getEmpDataFromFirebase();
+    }
+
+
+    @Override
+    public void onResume() {
+        super.onResume();
         getEmpDataFromFirebase();
     }
 }

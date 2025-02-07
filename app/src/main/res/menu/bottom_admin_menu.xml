@@ -8,5 +8,4 @@
         android:id="@+id/pos"
         android:title="POS"
         android:icon="@drawable/baseline_restaurant_menu_24"/>
-
 </menu>

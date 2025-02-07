@@ -52,8 +52,9 @@ public class AddEmployeeDialog extends DialogFragment implements AdapterView
     private Spinner spinner;
 
     private Button datePicker,saveEmployee;
-    private String selectedDate,selectedPosition,firstName,lastName,contactNumber,email;
-    public TextInputEditText etFName,etLName,etContactNumber,etEmail,etPass,etCode;
+    private String selectedDate,selectedPosition,firstName,lastName,contactNumber,email,empType;
+    private double payRate;
+    public TextInputEditText etFName,etLName,etContactNumber,etEmail,etPass,etCode,etPayRate,etEmpType;
     private int code,pass;
     private LocalDate localDate = LocalDate.now();
     private AddEmployeeDialogBinding binding;
@@ -94,7 +95,8 @@ public class AddEmployeeDialog extends DialogFragment implements AdapterView
         etCode = view.findViewById(R.id.etEmpCode);
         etPass = view.findViewById(R.id.etEmpPass);
         etEmail = view.findViewById(R.id.etEmpEmail);
-
+        etPayRate = view.findViewById(R.id.etPayRate);
+        etEmpType = view.findViewById(R.id.etEmpType);
         spinner.setOnItemSelectedListener(this);
         return view;
     }
@@ -127,19 +129,23 @@ public class AddEmployeeDialog extends DialogFragment implements AdapterView
             lastName = etLName.getText().toString();
             contactNumber = etContactNumber.getText().toString();
             email = etEmail.getText().toString();
+            empType = etEmpType.getText().toString();
             String inputCode = etCode.getText().toString();
             String inputPass = etPass.getText().toString();
+            String inputPayRate = etPayRate.getText().toString();
 
-            if (!(inputCode.isEmpty() || inputPass.isEmpty())) {
+
+            if (!(inputCode.isEmpty() || inputPass.isEmpty() || inputPayRate.isEmpty())) {
                 code = Integer.parseInt(inputCode);
                 pass = Integer.parseInt(inputPass);
+                payRate = Double.parseDouble(inputPayRate);
 
-                if (firstName.isEmpty() || lastName.isEmpty() || contactNumber.isEmpty() || email.isEmpty() || selectedDate == null || selectedPosition == null) {
+                if (firstName.isEmpty() || lastName.isEmpty() || contactNumber.isEmpty() || email.isEmpty() || selectedDate == null || selectedPosition == null || empType.isEmpty()) {
                     Toast.makeText(getContext(), "Please fill all required fields", Toast.LENGTH_SHORT).show();
                 } else {
                     getNumberOfEmployee(count -> {
                         int newId = count + 1; // Ensure ID is updated asynchronously
-                        Employee employee = new Employee(newId, firstName, lastName, email, contactNumber, selectedDate, selectedPosition, code, pass);
+                        Employee employee = new Employee(newId, firstName, lastName, email, contactNumber, selectedDate, selectedPosition,empType, code, pass,payRate);
                         //Employee saved yo
                         reference.child("employeeInfo").child(String.valueOf(newId)).setValue(employee);
                         dismiss();
@@ -227,13 +233,7 @@ public class AddEmployeeDialog extends DialogFragment implements AdapterView
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
             }
         });
     }
-
-
-
-
-
 }

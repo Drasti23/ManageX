@@ -29,10 +29,10 @@ public class WorkHoursAdapter extends RecyclerView.Adapter<WorkHoursAdapter.View
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         WorkHour workHour = workHoursList.get(position);
-        holder.textDate.setText(workHour.getDate());
-        holder.textClockIn.setText(workHour.getClockInTime());
-        holder.textClockOut.setText(workHour.getClockOutTime());
-        holder.textDuration.setText(workHour.getDuration());
+        holder.textDate.setText("Date: "+workHour.getDate());
+        holder.textClockIn.setText("Clock in time:" +workHour.getClockInTime());
+        holder.textClockOut.setText(" Clock out time:"+workHour.getClockOutTime());
+        holder.textDuration.setText("Duration: "+workHour.getDuration());
     }
 
     @Override
