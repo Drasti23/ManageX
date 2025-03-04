@@ -67,7 +67,8 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="9:00 AM"
+                android:inputType="datetime|time"
+                android:text="9:00"
                 android:textSize="16sp" />
 
             <EditText
@@ -75,7 +76,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="6:00 PM"
+                android:text="18:00"
                 android:textSize="16sp" />
         </LinearLayout>
 
@@ -97,7 +98,8 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="9:00 AM"
+                android:inputType="datetime|time"
+                android:text="9:00"
                 android:textSize="16sp" />
 
             <EditText
@@ -105,7 +107,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="6:00 PM"
+                android:text="18:00"
                 android:textSize="16sp" />
         </LinearLayout>
 
@@ -127,7 +129,8 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="9:00 AM"
+                android:inputType="datetime|time"
+                android:text="9:00"
                 android:textSize="16sp" />
 
             <EditText
@@ -135,7 +138,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="6:00 PM"
+                android:text="18:00"
                 android:textSize="16sp" />
         </LinearLayout>
 
@@ -157,7 +160,8 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="9:00 AM"
+                android:inputType="datetime|time"
+                android:text="9:00"
                 android:textSize="16sp" />
 
             <EditText
@@ -165,7 +169,8 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="6:00 PM"
+                android:text="18:00
+"
                 android:textSize="16sp" />
         </LinearLayout>
 
@@ -187,7 +192,8 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="9:00 AM"
+                android:inputType="datetime|time"
+                android:text="9:00"
                 android:textSize="16sp" />
 
             <EditText
@@ -195,7 +201,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="6:00 PM"
+                android:text="18:00"
                 android:textSize="16sp" />
         </LinearLayout>
 
@@ -217,7 +223,8 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="9:00 AM"
+                android:inputType="datetime|time"
+                android:text="9:00"
                 android:textSize="16sp" />
 
             <EditText
@@ -225,7 +232,8 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="6:00 PM"
+                android:inputType="datetime|time"
+                android:text="18:00"
                 android:textSize="16sp" />
         </LinearLayout>
 
@@ -247,7 +255,8 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="9:00 AM"
+                android:inputType="datetime|time"
+                android:text="9:00"
                 android:textSize="16sp" />
 
             <EditText
@@ -255,7 +264,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="6:00 PM"
+                android:text="18:00"
                 android:textSize="16sp" />
         </LinearLayout>
 
@@ -279,5 +288,13 @@
 
             </LinearLayout>
         </ScrollView>
+
+        <Button
+            android:id="@+id/btnSaveAvailability"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10sp"
+            android:text="Save" />
     </LinearLayout>
 </LinearLayout>

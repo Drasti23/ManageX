@@ -62,8 +62,12 @@ public class ManageEmployeeFragment extends Fragment{
             @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onClick(View view) {
-                AddEmployeeDialog dialog = new AddEmployeeDialog();
-                dialog.show(getChildFragmentManager(), AddEmployeeDialog.TAG);
+                AddEmployeeDialog.display(getChildFragmentManager(), new AddEmployeeDialog.EmployeeAddedListener() {
+                    @Override
+                    public void onEmployee() {
+                        getEmpDataFromFirebase();
+                    }
+                });
             }
         });
 

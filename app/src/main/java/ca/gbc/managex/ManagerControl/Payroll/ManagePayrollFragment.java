@@ -93,10 +93,12 @@ public class ManagePayrollFragment extends Fragment {
                 databaseReference.child("employeeInfo").child(selectedEmployeeId).addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        if (snapshot.exists()) {
+                        if (snapshot.exists() && snapshot.child("payRate").exists()) {
                             payRate = snapshot.child("payRate").getValue(Double.class);
-                            fetchWorkHours();  // Ensure `payRate` is loaded before fetching work hours
+                        } else {
+                            payRate = 0.0; // Default value
                         }
+                        fetchWorkHours(); // Fetch work hours only after payRate is set
                     }
 
                     @Override
@@ -105,9 +107,8 @@ public class ManagePayrollFragment extends Fragment {
                     }
                 });
             }
-
             @Override
-            public void onNothingSelected(AdapterView<?> parent) {}
+            public void onNothingSelected(AdapterView<?> parent) {fetchWorkHours();}
         });
 
 
@@ -119,7 +120,7 @@ public class ManagePayrollFragment extends Fragment {
             }
 
             @Override
-            public void onNothingSelected(AdapterView<?> parent) {}
+            public void onNothingSelected(AdapterView<?> parent) {fetchWorkHours();}
         });
 
         generatePdf.setOnClickListener(new View.OnClickListener() {
@@ -231,28 +232,40 @@ public class ManagePayrollFragment extends Fragment {
     private void fetchWorkHours() {
         if (selectedEmployeeId == null || selectedTimePeriod == null) return;
 
-        totalHours = 0; // Reset total hours to 0 when selecting a new employee
+        totalHours = 0; // Reset total hours
 
         databaseReference.child("EmployeeWorksheet").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 workHoursList.clear();
-                Calendar cal = Calendar.getInstance();
-                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+                SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMM yyyy", Locale.getDefault());
+                Calendar calendar = Calendar.getInstance();
 
-                for (DataSnapshot dateSnapshot : snapshot.getChildren()) {
-                    String date = dateSnapshot.getKey();
+                try {
+                    String[] dateRange = selectedTimePeriod.split(" to ");
+                    Date startDate = dateFormat.parse(dateRange[0]);
+                    Date endDate = dateFormat.parse(dateRange[1]);
 
-                    if (dateSnapshot.child(selectedEmployeeId).exists()) {
-                        DataSnapshot empData = dateSnapshot.child(selectedEmployeeId);
-                        String clockIn = empData.child("clockInTime").getValue(String.class);
-                        String clockOut = empData.child("clockOutTime").getValue(String.class);
-                        String duration = empData.child("duration").getValue(String.class);
-                        double hourWorked = parseDurationToHours(duration);
-                        totalHours += hourWorked;
+                    for (DataSnapshot dateSnapshot : snapshot.getChildren()) {
+                        String date = dateSnapshot.getKey();
+                        Date currentDate = dateFormat.parse(date);
 
-                        workHoursList.add(new WorkHour(date, clockIn, clockOut, duration));
+                        if (currentDate != null && !currentDate.before(startDate) && !currentDate.after(endDate)) {
+                            if (dateSnapshot.child(selectedEmployeeId).exists()) {
+                                DataSnapshot empData = dateSnapshot.child(selectedEmployeeId);
+                                String clockIn = empData.child("clockInTime").getValue(String.class);
+                                String clockOut = empData.child("clockOutTime").getValue(String.class);
+                                String duration = empData.child("duration").getValue(String.class);
+                                double hourWorked = parseDurationToHours(duration);
+                                totalHours += hourWorked;
+
+                                workHoursList.add(new WorkHour(date, clockIn, clockOut, duration));
+                            }
+                        }
                     }
+
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
 
                 workHoursAdapter.notifyDataSetChanged();
@@ -266,6 +279,7 @@ public class ManagePayrollFragment extends Fragment {
             }
         });
     }
+
 
     private double parseDurationToHours(String duration) {
         try {

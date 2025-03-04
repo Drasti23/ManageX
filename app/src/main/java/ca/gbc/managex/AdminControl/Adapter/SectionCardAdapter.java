@@ -1,6 +1,7 @@
 package ca.gbc.managex.AdminControl.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+
+import ca.gbc.managex.AdminControl.ManageItemActivity;
 import ca.gbc.managex.R;
 
 public class SectionCardAdapter extends RecyclerView.Adapter<SectionCardAdapter.ItemViewHolder>{
@@ -33,6 +36,15 @@ public class SectionCardAdapter extends RecyclerView.Adapter<SectionCardAdapter.
     public void onBindViewHolder(@NonNull ItemViewHolder holder, int position) {
     String name = sectionList.get(position);
     holder.sectionName.setText(name);
+    holder.itemView.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            Intent intent = new Intent(context, ManageItemActivity.class);
+            intent.putExtra("sectionName",name);
+            context.startActivity(intent);
+        }
+    });
+
 
     }
 

@@ -1,192 +1,203 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    android:gravity="clip_vertical|center_horizontal"
-    android:orientation="vertical"
     tools:context=".MainActivity">
 
     <!-- Welcome Text -->
-    <TextView
-        android:id="@+id/tvWelcome"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:gravity="center"
-        android:text="Welcome to ManageX!"
-        android:textAppearance="@style/TextAppearance.AppCompat.Display2"
-        android:textColor="@color/bgBlue"
-        android:textStyle="bold" />
-
-    <TextView
-        android:id="@+id/tvSubtext"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="24dp"
-        android:gravity="center"
-        android:text="Manage your Restaurant with ease."
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        android:textColor="@color/bgBlue" />
-
-    <!-- Menu Buttons -->
-    <GridLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
-        android:layout_marginTop="16dp"
-        android:columnCount="2"
-        android:padding="16dp"
-        android:rowCount="2">
+        android:layout_height="match_parent">
 
-        <!-- POS Button -->
-        <androidx.cardview.widget.CardView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_columnWeight="1"
-            app:cardElevation="10dp">
+       <androidx.constraintlayout.widget.ConstraintLayout
+           android:layout_width="match_parent"
+           android:layout_height="match_parent">
+           <TextView
+               android:id="@+id/tvWelcome"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:text="Welcome to ManageX!"
+               android:textSize="28sp"
+               android:textStyle="bold"
+               android:textColor="@android:color/black"
+               app:layout_constraintTop_toTopOf="parent"
+               app:layout_constraintStart_toStartOf="parent"
+               app:layout_constraintEnd_toEndOf="parent"
+               android:layout_marginTop="32dp"/>
 
-            <LinearLayout
-                android:id="@+id/llPos"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_margin="8dp"
-                android:background="@drawable/rounded_button"
-                android:gravity="center"
-                android:orientation="vertical"
-                android:padding="16dp">
+           <TextView
+               android:id="@+id/tvSubtext"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:text="Manage your Restaurant with ease."
+               android:textSize="18sp"
+               android:textColor="@android:color/darker_gray"
+               app:layout_constraintTop_toBottomOf="@id/tvWelcome"
+               app:layout_constraintStart_toStartOf="parent"
+               app:layout_constraintEnd_toEndOf="parent"
+               android:layout_marginTop="8dp"/>
 
-                <ImageView
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
-                    android:src="@drawable/img_4" />
+           <!-- Grid Layout for Options -->
+           <androidx.gridlayout.widget.GridLayout
+               android:id="@+id/gridLayout"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:layout_marginTop="24dp"
+               app:columnCount="2"
+               app:layout_constraintTop_toBottomOf="@id/tvSubtext"
+               app:layout_constraintStart_toStartOf="parent"
+               app:layout_constraintEnd_toEndOf="parent"
+               app:rowCount="2">
 
-                <TextView
-                    android:id="@+id/tvPOS"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:text="POS"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Large"
-                    android:textColor="@color/bgBlue"
-                    android:textStyle="bold" />
-            </LinearLayout>
+               <!-- POS Card -->
+               <androidx.cardview.widget.CardView
+                   android:layout_width="180dp"
+                   android:layout_height="220dp"
+                   android:layout_margin="12dp"
+                   android:onClick="onPOSClick"
+                   app:cardBackgroundColor="@color/purple_2"
+                   app:cardCornerRadius="16dp"
+                   app:cardElevation="8dp">
 
-        </androidx.cardview.widget.CardView>
+                   <LinearLayout
+                       android:id="@+id/llPos"
+                       android:layout_width="match_parent"
+                       android:layout_height="match_parent"
+                       android:gravity="center"
+                       android:orientation="vertical"
+                       android:padding="16dp">
 
-        <androidx.cardview.widget.CardView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_columnWeight="1"
+                       <ImageView
+                           android:layout_width="80dp"
+                           android:layout_height="80dp"
+                           android:src="@drawable/point_of_sale_24px" />
 
-            app:cardElevation="10dp">
+                       <TextView
+                           android:id="@+id/tvPOS"
+                           android:layout_width="wrap_content"
+                           android:layout_height="wrap_content"
+                           android:layout_marginTop="12dp"
+                           android:text="POS"
+                           android:textColor="@color/black"
+                           android:textSize="20sp"
+                           android:textStyle="bold" />
+                   </LinearLayout>
+               </androidx.cardview.widget.CardView>
 
-            <LinearLayout
-                android:id="@+id/llTimeRegister"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_margin="8dp"
-                android:background="@drawable/rounded_button"
-                android:gravity="center"
-                android:orientation="vertical"
-                android:padding="16dp">
+               <!-- Time Register Card -->
+               <androidx.cardview.widget.CardView
+                   android:layout_width="180dp"
+                   android:layout_height="220dp"
+                   android:layout_margin="12dp"
+                   android:onClick="onTimeRegisterClick"
+                   app:cardBackgroundColor="@color/purple_2"
+                   app:cardCornerRadius="16dp"
+                   app:cardElevation="8dp">
 
-                <ImageView
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
-                    android:src="@drawable/img_5" />
+                   <LinearLayout
+                       android:id="@+id/llTimeRegister"
+                       android:layout_width="match_parent"
+                       android:layout_height="match_parent"
+                       android:gravity="center"
+                       android:orientation="vertical"
+                       android:padding="16dp">
 
-                <TextView
-                    android:id="@+id/tvTimeRegister"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:text="Time Register"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Large"
-                    android:textColor="@color/bgBlue"
-                    android:textStyle="bold" />
-            </LinearLayout>
-        </androidx.cardview.widget.CardView>
+                       <ImageView
+                           android:layout_width="80dp"
+                           android:layout_height="80dp"
+                           android:src="@drawable/timelapse_24px" />
 
-        <androidx.cardview.widget.CardView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_columnWeight="1"
+                       <TextView
+                           android:id="@+id/tvTimeRegister"
+                           android:layout_width="wrap_content"
+                           android:layout_height="wrap_content"
+                           android:layout_marginTop="12dp"
+                           android:text="Time Register"
+                           android:textColor="@color/black"
+                           android:textSize="20sp"
+                           android:textStyle="bold" />
+                   </LinearLayout>
+               </androidx.cardview.widget.CardView>
 
-            app:cardElevation="10dp">
+               <!-- Order History Card -->
+               <androidx.cardview.widget.CardView
+                   android:layout_width="180dp"
+                   android:layout_height="220dp"
+                   android:layout_margin="12dp"
+                   android:onClick="onOrderHistoryClick"
+                   app:cardBackgroundColor="@color/purple_2"
+                   app:cardCornerRadius="16dp"
+                   app:cardElevation="8dp">
 
-            <LinearLayout
-                android:id="@+id/llOrderHistory"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_margin="8dp"
-                android:background="@drawable/rounded_button"
-                android:gravity="center"
-                android:orientation="vertical"
-                android:padding="16dp">
+                   <LinearLayout
+                       android:id="@+id/llOrderHistory"
+                       android:layout_width="match_parent"
+                       android:layout_height="match_parent"
+                       android:gravity="center"
+                       android:orientation="vertical"
+                       android:padding="16dp">
 
-                <ImageView
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
-                    android:src="@drawable/img_6" />
+                       <ImageView
+                           android:layout_width="80dp"
+                           android:layout_height="80dp"
+                           android:src="@drawable/manage_search_24px" />
 
-                <TextView
-                    android:id="@+id/tvOrderHistory"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:text="Order History"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Large"
-                    android:textColor="@color/bgBlue"
-                    android:textStyle="bold" />
-            </LinearLayout>
-        </androidx.cardview.widget.CardView>
+                       <TextView
+                           android:id="@+id/tvOrderHistory"
+                           android:layout_width="wrap_content"
+                           android:layout_height="wrap_content"
+                           android:layout_marginTop="12dp"
+                           android:text="Order History"
+                           android:textColor="@color/black"
+                           android:textSize="20sp"
+                           android:textStyle="bold" />
+                   </LinearLayout>
+               </androidx.cardview.widget.CardView>
 
-        <androidx.cardview.widget.CardView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_columnWeight="1"
-            app:cardElevation="10dp">
+               <!-- Settings Card -->
+               <androidx.cardview.widget.CardView
+                   android:layout_width="180dp"
+                   android:layout_height="220dp"
+                   android:layout_margin="12dp"
+                   android:onClick="onSettingsClick"
+                   app:cardBackgroundColor="@color/purple_2"
+                   app:cardCornerRadius="16dp"
+                   app:cardElevation="8dp">
 
-            <LinearLayout
-                android:id="@+id/llSettings"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_columnWeight="1"
-                android:layout_margin="8dp"
-                android:background="@drawable/rounded_button"
-                android:gravity="center"
-                android:orientation="vertical"
-                android:padding="16dp">
+                   <LinearLayout
+                       android:id="@+id/llSettings"
+                       android:layout_width="match_parent"
+                       android:layout_height="match_parent"
+                       android:gravity="center"
+                       android:orientation="vertical"
+                       android:padding="16dp">
 
-                <ImageView
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
-                    android:src="@drawable/img_7" />
+                       <ImageView
+                           android:layout_width="80dp"
+                           android:layout_height="80dp"
+                           android:src="@drawable/settings_24px" />
 
-                <TextView
-                    android:id="@+id/tvSettings"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:text="Settings"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Large"
-                    android:textColor="@color/bgBlue"
-                    android:textStyle="bold" />
-            </LinearLayout>
-        </androidx.cardview.widget.CardView>
+                       <TextView
+                           android:id="@+id/tvSettings"
+                           android:layout_width="wrap_content"
+                           android:layout_height="wrap_content"
+                           android:layout_marginTop="12dp"
+                           android:text="Settings"
+                           android:textColor="@color/bgBlue"
+                           android:textSize="20sp"
+                           android:textStyle="bold" />
+                   </LinearLayout>
+               </androidx.cardview.widget.CardView>
 
+           </androidx.gridlayout.widget.GridLayout>
 
-        <!-- Time Register Button -->
-
-
-        <!-- Order History Button -->
+       </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
 
 
-        <!-- Settings Button -->
-
-    </GridLayout>
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -31,15 +31,20 @@ FirebaseAuth auth = FirebaseAuth.getInstance();
 FirebaseUser user = auth.getCurrentUser();
 DatabaseReference reference = database.getReference().child("Users").child(user.getUid()).child("Menu");
 public static final String TAG = "addSectionDialog";
+    private SectionAddedListener sectionAddedListener;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
-    public static AddSectionDialog display(FragmentManager fragmentManager){
+    public static AddSectionDialog display(FragmentManager fragmentManager,SectionAddedListener listener){
         AddSectionDialog dialog = new AddSectionDialog();
+        dialog.sectionAddedListener = listener;
         dialog.show(fragmentManager,TAG);
         return dialog;
+    }
+    public interface SectionAddedListener{
+        void onSectionAdded();
     }
 
     @Nullable
@@ -69,6 +74,9 @@ public static final String TAG = "addSectionDialog";
                     Toast.makeText(getContext(),"Enter a section name",Toast.LENGTH_SHORT).show();
                 }
                 else{
+                    if(sectionAddedListener !=null){
+                        sectionAddedListener.onSectionAdded();
+                    }
                     saveSectionNameToDatabase(sectionName);
                     dismiss();
                 }

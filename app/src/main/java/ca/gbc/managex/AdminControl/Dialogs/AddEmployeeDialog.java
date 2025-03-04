@@ -63,11 +63,16 @@ public class AddEmployeeDialog extends DialogFragment implements AdapterView
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference reference = database.getReference().child("Users").child(user.getUid());
 
+    private EmployeeAddedListener employeeAddedListener;
     public static final String TAG = "addEmployeeDialog";
-    public static AddEmployeeDialog display(FragmentManager fragmentManager){
+    public static AddEmployeeDialog display(FragmentManager fragmentManager,EmployeeAddedListener listener){
         AddEmployeeDialog dialog = new AddEmployeeDialog();
+        dialog.employeeAddedListener = listener;
         dialog.show(fragmentManager,TAG);
         return dialog;
+    }
+    public interface EmployeeAddedListener{
+        void onEmployee();
     }
     public interface EmployeeCountCallback {
         void onCountRetrieved(int count);
@@ -108,7 +113,7 @@ public class AddEmployeeDialog extends DialogFragment implements AdapterView
         toolbar.setNavigationIcon(R.drawable.baseline_close_24);
         toolbar.setNavigationOnClickListener(v-> dismiss());
         datePicker.setOnClickListener(v->{
-            datePicker.setText(openDatePickerDialog());
+            openDatePickerDialog();
         });
 
         //list of positions
@@ -148,6 +153,9 @@ public class AddEmployeeDialog extends DialogFragment implements AdapterView
                         Employee employee = new Employee(newId, firstName, lastName, email, contactNumber, selectedDate, selectedPosition,empType, code, pass,payRate);
                         //Employee saved yo
                         reference.child("employeeInfo").child(String.valueOf(newId)).setValue(employee);
+                        if(employeeAddedListener !=null){
+                            employeeAddedListener.onEmployee();
+                        }
                         dismiss();
                     });
                 }
@@ -172,17 +180,16 @@ public class AddEmployeeDialog extends DialogFragment implements AdapterView
 
     }
 
-    private String openDatePickerDialog(){
+    private void openDatePickerDialog(){
         DatePickerDialog dialog = new DatePickerDialog(getContext(), new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
-                selectedDate = i + "/" + i1 + "/"+ i2;
+                selectedDate = i + "/" + (i1+1) + "/"+ i2;
                 Toast.makeText(getContext(),"Date selected : " + selectedDate,Toast.LENGTH_SHORT).show();
             }
-        },localDate.getYear(),localDate.getMonthValue(),localDate.getDayOfMonth());
+        },localDate.getYear(),localDate.getMonthValue()-1,localDate.getDayOfMonth());
         dialog.show();
         datePicker.setText(selectedDate);
-        return selectedDate;
     }
     public void checkErrorInEditText(TextInputEditText et, int limit){
         et.addTextChangedListener(new TextWatcher() {

@@ -49,7 +49,12 @@ public class ManagePOSFragment extends Fragment {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AddSectionDialog.display(getChildFragmentManager());
+                AddSectionDialog.display(getChildFragmentManager(), new AddSectionDialog.SectionAddedListener() {
+                    @Override
+                    public void onSectionAdded() {
+                        getSectionList();
+                    }
+                });
             }
         });
 
@@ -62,15 +67,14 @@ public class ManagePOSFragment extends Fragment {
         reference.child("Menu").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                sectionsList.clear(); // Clear the list before adding new items
+                sectionsList.clear(); // Clear list before adding new items
 
                 if (snapshot.exists()) {
                     for (DataSnapshot child : snapshot.getChildren()) {
-                        String sectionName = child.getValue(String.class);
+                        String sectionName = child.getKey(); // Get section key instead of value
                         sectionsList.add(sectionName);
                     }
                     adapter.notifyDataSetChanged();
-                    Toast.makeText(getContext(), "Sections: " + sectionsList.toString(), Toast.LENGTH_LONG).show();
 
                 } else {
                     Toast.makeText(getContext(), "No sections found", Toast.LENGTH_SHORT).show();
@@ -83,6 +87,7 @@ public class ManagePOSFragment extends Fragment {
             }
         });
     }
+
 
 
     @Override

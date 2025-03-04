@@ -22,12 +22,14 @@ import com.itextpdf.text.pdf.PdfWriter;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.Locale;
 
 public class PDFGenerator {
 
     private Context context;
+
 
     public PDFGenerator(Context context) {
         this.context = context;
@@ -44,8 +46,9 @@ public class PDFGenerator {
 
         Document document = new Document();
         try {
+            String currentDate = new SimpleDateFormat("dd MMM yyyy", Locale.getDefault()).format(new Date());
             String directoryPath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).toString();
-            File file = new File(directoryPath, "Payroll_" + employeeName + ".pdf");
+            File file = new File(directoryPath, timePeriod+"payStub_" + employeeName + ".pdf");
             PdfWriter.getInstance(document, new FileOutputStream(file));
             document.open();
 
@@ -56,7 +59,7 @@ public class PDFGenerator {
             document.add(title);
 
             // Date
-            String currentDate = new SimpleDateFormat("dd MMM yyyy", Locale.getDefault()).format(new Date());
+
             Paragraph date = new Paragraph("Generated on: " + currentDate);
             Paragraph paragraphTimePeriod = new Paragraph("Time period: "+ timePeriod);
             date.setAlignment(Element.ALIGN_CENTER);

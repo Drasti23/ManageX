@@ -1,45 +1,33 @@
 package ca.gbc.managex.AdminControl.Classes;
 
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Generated;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import java.util.ArrayList;
+
 public class Item {
-    public Item(int id, String itemName, String price) {
-        this.id = id;
-        this.itemName = itemName;
-        this.price = price;
+    private String name;
+    private ArrayList<ItemSize> itemSizeList;
+
+    public Item(String name, ArrayList<ItemSize> itemSizeList) {
+        this.name = name;
+        this.itemSizeList = itemSizeList;
     }
 
-    public int getId() {
-        return id;
+    public String getName() {
+        return name;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getItemName() {
-        return itemName;
+    public ArrayList<ItemSize> getItemSizeList() {
+        return itemSizeList;
     }
 
-    public void setItemName(String itemName) {
-        this.itemName = itemName;
+    public void setItemSizeList(ArrayList<ItemSize> itemSizeList) {
+        this.itemSizeList = itemSizeList;
     }
+    public Item(){
 
-    public String getPrice() {
-        return price;
     }
-
-    public void setPrice(String price) {
-        this.price = price;
-    }
-
-    private int id;
-    private String itemName;
-    private String price;
-
 }

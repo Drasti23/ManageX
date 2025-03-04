@@ -40,10 +40,13 @@
 
             <EditText
                 android:id="@+id/etregisterEmail"
-                android:layout_width="match_parent"
+                android:layout_width="350sp"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:layout_marginTop="8dp"
+                android:layout_weight="0"
                 android:fontFamily="@font/lato_bold"
+                android:gravity="center"
                 android:hint="Restaurant Email"
                 android:inputType="textEmailAddress"
                 android:padding="10dp"
@@ -51,10 +54,13 @@
 
             <EditText
                 android:id="@+id/etregisterPassword"
-                android:layout_width="match_parent"
+                android:layout_width="350sp"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:layout_marginTop="8dp"
+                android:layout_weight="0"
                 android:fontFamily="@font/lato_bold"
+                android:gravity="center"
                 android:hint="Password"
                 android:inputType="textPassword"
                 android:padding="10dp"
@@ -62,10 +68,13 @@
 
             <EditText
                 android:id="@+id/etregisterConfirmPassword"
-                android:layout_width="match_parent"
+                android:layout_width="350sp"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:layout_marginTop="8dp"
+                android:layout_weight="0"
                 android:fontFamily="@font/lato_bold"
+                android:gravity="center"
                 android:hint="Confirm Password"
                 android:inputType="textPassword"
                 android:padding="10dp"
@@ -73,9 +82,10 @@
 
             <Button
                 android:id="@+id/btnRegister"
-                android:layout_width="match_parent"
+                android:layout_width="200sp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"
                 android:backgroundTint="@color/bgBlue"
                 android:fontFamily="@font/lato_bold"
                 android:text="Next"

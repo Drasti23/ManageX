@@ -47,6 +47,7 @@ dependencies {
     implementation(libs.firebase.auth)
     implementation ("com.google.android.gms:play-services-auth:20.6.0")
     implementation(libs.firebase.storage)
+    implementation(libs.gridlayout)
     compileOnly("org.projectlombok:lombok:1.18.36")
     annotationProcessor("org.projectlombok:lombok:1.18.36")
     implementation(libs.firebase.database)
