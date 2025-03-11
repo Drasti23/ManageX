@@ -96,7 +96,32 @@ public class ManageItemActivity extends AppCompatActivity {
         rvSizePriceList.setAdapter(adapter);
 
         btnAddSize.setOnClickListener(v -> {
+            // Preserve existing inputs
+            for (int i = 0; i < rvSizePriceList.getChildCount(); i++) {
+                View v1 = rvSizePriceList.getChildAt(i);
+                if (v1 != null) {
+                    EditText etSize = v1.findViewById(R.id.etSize);
+                    EditText etPrice = v1.findViewById(R.id.etPrice);
+
+                    String size = etSize.getText().toString().trim();
+                    String priceStr = etPrice.getText().toString().trim();
+
+                    if (!size.isEmpty() && !priceStr.isEmpty()) {
+                        double price = Double.parseDouble(priceStr);
+
+                        // Update existing entry instead of overwriting list
+                        if (i < sizePriceList.size()) {
+                            sizePriceList.get(i).setSize(size);
+                            sizePriceList.get(i).setPrice(price);
+                        }
+                    }
+                }
+            }
+
+            // Add a new empty size field
             sizePriceList.add(new ItemSize("", 0));
+
+            // Notify adapter
             adapter.notifyDataSetChanged();
         });
 
@@ -104,6 +129,10 @@ public class ManageItemActivity extends AppCompatActivity {
             String itemName = etItemName.getText().toString().trim();
             if (itemName.isEmpty()) {
                 Toast.makeText(this, "Enter item name", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            if(sizePriceList.size() == 0){
+                Toast.makeText(ManageItemActivity.this, "Item should have at least one size", Toast.LENGTH_SHORT).show();
                 return;
             }
 

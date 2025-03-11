@@ -1,12 +1,9 @@
-package ca.gbc.managex.AdminControl.Classes;
+package ca.gbc.managex.POS;
 
 import java.util.ArrayList;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import ca.gbc.managex.AdminControl.Classes.Item;
+
 public class Section {
     private String name;
     private ArrayList<Item> items;

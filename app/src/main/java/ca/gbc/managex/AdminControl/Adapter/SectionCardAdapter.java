@@ -5,9 +5,11 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
@@ -44,7 +46,19 @@ public class SectionCardAdapter extends RecyclerView.Adapter<SectionCardAdapter.
             context.startActivity(intent);
         }
     });
+    holder.edit.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(context);
 
+        }
+    });
+    holder.delete.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+
+        }
+    });
 
     }
 
@@ -56,9 +70,12 @@ public class SectionCardAdapter extends RecyclerView.Adapter<SectionCardAdapter.
     public static class ItemViewHolder extends RecyclerView.ViewHolder{
 
         TextView sectionName;
+        ImageView delete,edit;
         public ItemViewHolder(@NonNull View itemView) {
             super(itemView);
             sectionName = itemView.findViewById(R.id.tvSectionNameCard);
+            delete = itemView.findViewById(R.id.sectionDelete);
+            edit = itemView.findViewById(R.id.sectionNameEdit);
         }
     }
 }
