@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="8dp"
+    android:background="@android:color/white"
+    android:elevation="4dp"
+    android:layout_margin="4dp">
+
+    <!-- Day 1 (Sunday) -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="4dp">
+
+        <TextView
+            android:id="@+id/tvDaySunday"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Sunday"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:gravity="center_vertical" />
+
+        <TextView
+            android:id="@+id/tvStartTimeSunday"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Start Time"
+            android:textSize="16sp"
+            android:gravity="center_vertical" />
+
+        <TextView
+            android:id="@+id/tvEndTimeSunday"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="End Time"
+            android:textSize="16sp"
+            android:gravity="center_vertical" />
+    </LinearLayout>
+
+    <!-- Day 2 (Monday) -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="4dp">
+
+        <TextView
+            android:id="@+id/tvDayMonday"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Monday"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:gravity="center_vertical" />
+
+        <TextView
+            android:id="@+id/tvStartTimeMonday"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Start Time"
+            android:textSize="16sp"
+            android:gravity="center_vertical" />
+
+        <TextView
+            android:id="@+id/tvEndTimeMonday"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="End Time"
+            android:textSize="16sp"
+            android:gravity="center_vertical" />
+    </LinearLayout>
+
+    <!-- Repeat the same structure for the remaining days (Tuesday to Saturday) -->
+
+    <!-- Day 3 (Tuesday) -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="4dp">
+
+        <TextView
+            android:id="@+id/tvDayTuesday"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Tuesday"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:gravity="center_vertical" />
+
+        <TextView
+            android:id="@+id/tvStartTimeTuesday"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Start Time"
+            android:textSize="16sp"
+            android:gravity="center_vertical" />
+
+        <TextView
+            android:id="@+id/tvEndTimeTuesday"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="End Time"
+            android:textSize="16sp"
+            android:gravity="center_vertical" />
+    </LinearLayout>
+
+    <!-- Day 4 (Wednesday) -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="4dp">
+
+        <TextView
+            android:id="@+id/tvDayWednesday"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Wednesday"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:gravity="center_vertical" />
+
+        <TextView
+            android:id="@+id/tvStartTimeWednesday"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Start Time"
+            android:textSize="16sp"
+            android:gravity="center_vertical" />
+
+        <TextView
+            android:id="@+id/tvEndTimeWednesday"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="End Time"
+            android:textSize="16sp"
+            android:gravity="center_vertical" />
+    </LinearLayout>
+
+    <!-- Day 5 (Thursday) -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="4dp">
+
+        <TextView
+            android:id="@+id/tvDayThursday"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Thursday"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:gravity="center_vertical" />
+
+        <TextView
+            android:id="@+id/tvStartTimeThursday"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Start Time"
+            android:textSize="16sp"
+            android:gravity="center_vertical" />
+
+        <TextView
+            android:id="@+id/tvEndTimeThursday"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="End Time"
+            android:textSize="16sp"
+            android:gravity="center_vertical" />
+    </LinearLayout>
+
+    <!-- Day 6 (Friday) -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="4dp">
+
+        <TextView
+            android:id="@+id/tvDayFriday"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Friday"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:gravity="center_vertical" />
+
+        <TextView
+            android:id="@+id/tvStartTimeFriday"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Start Time"
+            android:textSize="16sp"
+            android:gravity="center_vertical" />
+
+        <TextView
+            android:id="@+id/tvEndTimeFriday"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="End Time"
+            android:textSize="16sp"
+            android:gravity="center_vertical" />
+    </LinearLayout>
+
+    <!-- Day 7 (Saturday) -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="4dp">
+
+        <TextView
+            android:id="@+id/tvDaySaturday"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Saturday"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:gravity="center_vertical" />
+
+        <TextView
+            android:id="@+id/tvStartTimeSaturday"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Start Time"
+            android:textSize="16sp"
+            android:gravity="center_vertical" />
+
+        <TextView
+            android:id="@+id/tvEndTimeSaturday"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="End Time"
+            android:textSize="16sp"
+            android:gravity="center_vertical" />
+    </LinearLayout>
+
+</LinearLayout>
