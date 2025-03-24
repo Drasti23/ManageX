@@ -10,9 +10,10 @@
         android:layout_height="match_parent"
         android:orientation="horizontal"
         >
+
         <ImageView
-            android:layout_width="50sp"
-            android:layout_height="50sp"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
             android:layout_gravity="center_vertical"
             android:src="@drawable/baseline_restaurant_menu_24" />
         <TextView
@@ -23,23 +24,6 @@
             android:gravity="center_vertical"
             android:text="Section Name"
             android:textAppearance="@style/TextAppearance.AppCompat.Large" />
-
-        <ImageView
-            android:id="@+id/sectionNameEdit"
-            android:layout_width="50sp"
-            android:layout_height="50sp"
-            android:layout_gravity="center"
-            android:layout_marginStart="30sp"
-            app:srcCompat="@drawable/baseline_edit_24"
-            app:tint="?attr/colorControlNormal" />
-
-        <ImageView
-            android:id="@+id/sectionDelete"
-            android:layout_width="50sp"
-            android:layout_height="50sp"
-            android:layout_gravity="center"
-            android:layout_marginStart="30sp"
-            app:srcCompat="@drawable/baseline_delete_24" />
 
     </LinearLayout>
 </androidx.cardview.widget.CardView>

@@ -242,7 +242,6 @@
                 android:layout_height="50dp"
                 android:layout_gravity="center"
                 android:layout_marginTop="15dp"
-                android:backgroundTint="@color/dark_blue"
                 android:text="Save"
                 android:textColor="@color/white" />
         </LinearLayout>

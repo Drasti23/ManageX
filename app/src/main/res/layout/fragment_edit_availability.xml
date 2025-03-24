@@ -11,23 +11,30 @@
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        android:background="@color/greyLow"
+        android:background="@color/app_button"
         android:orientation="vertical"
         android:padding="8dp">
-
-        <TextView
-            android:id="@+id/tvSelectedEmployeeName"
-            android:layout_width="wrap_content"
+        <!-- Search -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilSearch"
+            style="@style/Widget.Material3.TextInputLayout.FilledBox"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingBottom="8dp"
-            android:text="Select an employee"
-            android:textSize="20sp"
-            android:textStyle="bold" />
+            android:hint="Search by name or code">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etSearchEmployee"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:focusable="auto"
+                android:focusableInTouchMode="true"
+                android:inputType="text" />
+        </com.google.android.material.textfield.TextInputLayout>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/availability_recyclerView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             tools:listitem="@layout/employee_cardview" />
     </LinearLayout>
 
@@ -291,10 +298,14 @@
 
         <Button
             android:id="@+id/btnSaveAvailability"
-            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            style="@style/Widget.Material3.Button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10sp"
-            android:text="Save" />
+            android:layout_marginTop="16dp"
+            android:drawableLeft="@drawable/timelapse_24px"
+            android:drawableTint="@color/white"
+            android:text="Save"
+            app:backgroundTint="@color/yeminBlue"
+            app:cornerRadius="0sp" />
     </LinearLayout>
 </LinearLayout>

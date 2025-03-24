@@ -23,6 +23,7 @@
         android:id="@+id/btnRemove"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:backgroundTint="@color/beet"
         android:text="X"
         android:theme="@style/Widget.Material3.Button.IconButton.Outlined" />
 </LinearLayout>

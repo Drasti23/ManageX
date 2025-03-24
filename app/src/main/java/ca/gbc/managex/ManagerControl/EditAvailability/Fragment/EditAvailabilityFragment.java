@@ -8,6 +8,8 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -63,6 +65,19 @@ public class EditAvailabilityFragment extends Fragment implements EmployeeAdapte
         if(currentAvailabilityObj ==null){
         setDefaultAvailability();
         }
+        binding.etSearchEmployee.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                filterEmployees(s.toString());
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {}
+        });
+
 
         binding.btnSaveAvailability.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -175,4 +190,17 @@ public class EditAvailabilityFragment extends Fragment implements EmployeeAdapte
         binding.tvSaturdayStartTime.setText("closed");
         binding.tvSaturdayEndTime.setText("closed");
     }
+    private void filterEmployees(String query) {
+        List<Employee> filteredList = new ArrayList<>();
+        for (Employee emp : employeeList) {
+            if (emp.getFirstName().toLowerCase().contains(query.toLowerCase()) ||
+                    String.valueOf(emp.getEmpCode()).contains(query) || emp.getLastName().toLowerCase().contains(query.toLowerCase())) {
+                filteredList.add(emp);
+            }
+        }
+        employeeAdapter.updateList(filteredList);
+    }
+
+
+
 }

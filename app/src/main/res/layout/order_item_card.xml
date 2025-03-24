@@ -4,7 +4,6 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="5dp"
-    android:background="@color/theme_1"
     android:orientation="vertical"
     android:padding="5dp">
 
@@ -41,7 +40,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="2dp"
-            android:background="@drawable/border"
             android:text="Item Price"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 

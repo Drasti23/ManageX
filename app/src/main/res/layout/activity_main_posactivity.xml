@@ -3,12 +3,53 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/ActivityPOS"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical"
     tools:context=".POS.MainPOSActivity">
 
-    <include layout="@layout/app_menu" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="10sp">
+
+        <ImageView
+            android:id="@+id/backButton"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:src="@drawable/baseline_arrow_back_24" />
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="50sp"
+
+            android:layout_height="match_parent"
+            android:layout_marginStart="35dp"
+            app:srcCompat="@drawable/person_apron_24px" />
+
+
+        <TextView
+            android:id="@+id/tvServer"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="Order Taker:"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+        <TextView
+            android:id="@+id/tvOrderTaker"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginStart="5sp"
+            android:gravity="center"
+            android:text="Name"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -20,8 +61,9 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvSectionList"
             android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="2" />
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:background="@color/app_button" />
 
         <LinearLayout
             android:layout_width="0dp"
@@ -33,13 +75,13 @@
             <ScrollView
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="4"
-                android:background="@drawable/border"
+                android:layout_weight="5"
                 android:fillViewport="true">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="@color/white"
                     android:orientation="vertical">
 
                     <androidx.gridlayout.widget.GridLayout
@@ -48,18 +90,61 @@
                         android:layout_height="wrap_content"
                         app:columnCount="2"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        />
+                        app:layout_constraintStart_toStartOf="parent" />
 
                 </LinearLayout>
 
             </ScrollView>
 
             <!-- ConstraintLayout (for additional UI elements) -->
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="1.5" />
+                android:layout_weight="1">
+
+                <Button
+                    android:id="@+id/btnCancelOrder"
+                    style="@style/Widget.MaterialComponents.Button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="80sp"
+                    android:layout_margin="20dp"
+                    android:layout_weight="1"
+                    android:backgroundTint="@color/beet"
+                    android:drawableLeft="@drawable/baseline_close_24"
+                    android:drawableTint="@color/white"
+                    android:fontFamily="@font/inter_medium"
+                    android:text="Cancel"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+
+                <Button
+                    android:id="@+id/btnTakeOut"
+                    style="@style/Widget.MaterialComponents.Button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="80sp"
+                    android:layout_margin="20dp"
+                    android:layout_weight="1"
+                    android:backgroundTint="@color/yeminBlue"
+
+                    android:drawableLeft="@drawable/baseline_takeout_dining_24"
+                    android:drawableTint="@color/white"
+                    android:text="TakeOut"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+
+                <Button
+                    android:id="@+id/btnDineIn"
+                    style="@style/Widget.MaterialComponents.Button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="80sp"
+                    android:layout_margin="20dp"
+                    android:layout_weight="1"
+                    android:backgroundTint="@color/card_green"
+
+                    android:drawableLeft="@drawable/baseline_restaurant_menu_24"
+                    android:drawableTint="@color/white"
+                    android:text="DineIn"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+
+            </LinearLayout>
 
         </LinearLayout>
 
@@ -77,13 +162,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="4"
-                android:background="@drawable/border"
+                android:visibility="visible"
                 tools:listitem="@layout/order_item_card" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/biillCL"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
+                android:visibility="invisible"
                 app:layout_constraintEnd_toStartOf="@+id/tvPOSTax"
                 app:layout_constraintStart_toStartOf="@+id/tvPOSTax">
 
@@ -92,7 +179,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="15dp"
-                    android:layout_marginBottom="15dp"
+                    android:layout_marginBottom="10sp"
                     android:text="Sub Total :"
                     app:layout_constraintBottom_toTopOf="@+id/textView6"
                     app:layout_constraintStart_toStartOf="parent" />
@@ -102,7 +189,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="15dp"
-                    android:layout_marginBottom="15dp"
+                    android:layout_marginBottom="10sp"
                     android:text="Tax :"
                     app:layout_constraintBottom_toTopOf="@+id/textView17"
                     app:layout_constraintStart_toStartOf="parent" />
@@ -112,18 +199,18 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="15dp"
-                    android:layout_marginBottom="15dp"
+                    android:layout_marginBottom="10sp"
                     android:text="Item Edited: "
                     app:layout_constraintBottom_toTopOf="@+id/textView4"
                     app:layout_constraintStart_toStartOf="parent" />
 
                 <TextView
-                    android:id="@+id/tvItemEdited"
+                    android:id="@+id/tvDiscount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="50dp"
-                    android:layout_marginBottom="15dp"
-                    android:text="TextView"
+                    android:layout_marginBottom="10sp"
+                    android:text="0.0"
                     app:layout_constraintBottom_toTopOf="@+id/tvSubTotal"
                     app:layout_constraintEnd_toEndOf="parent" />
 
@@ -132,8 +219,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="50dp"
-                    android:layout_marginBottom="15dp"
-                    android:text="TextView"
+                    android:layout_marginBottom="10sp"
+                    android:text="0.0"
                     app:layout_constraintBottom_toTopOf="@+id/tvPOSTax"
                     app:layout_constraintEnd_toEndOf="parent" />
 
@@ -142,8 +229,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="50dp"
-                    android:layout_marginBottom="15dp"
-                    android:text="TextView"
+                    android:layout_marginBottom="10sp"
+                    android:text="0.0"
                     app:layout_constraintBottom_toTopOf="@+id/tvTotal"
                     app:layout_constraintEnd_toEndOf="parent" />
 
@@ -152,7 +239,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="15dp"
-                    android:layout_marginBottom="15dp"
+                    android:layout_marginBottom="10sp"
                     android:text="Total :"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent" />
@@ -163,7 +250,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="50dp"
                     android:layout_marginBottom="15dp"
-                    android:text="TextView"
+                    android:text="0.0"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>

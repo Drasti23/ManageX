@@ -67,7 +67,7 @@ public class EmployeeAdapter extends RecyclerView.Adapter<EmployeeAdapter.Employ
             holder.itemView.setBackgroundColor(ContextCompat.getColor(context, android.R.color.white)); // Selected item color
         }
         else{
-            holder.itemView.setBackgroundColor(context.getResources().getColor(R.color.greyLow));
+            holder.itemView.setBackgroundColor(context.getResources().getColor(R.color.app_button));
         }
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -108,6 +108,10 @@ public class EmployeeAdapter extends RecyclerView.Adapter<EmployeeAdapter.Employ
             tvEmployeeId = itemView.findViewById(R.id.tvEmployeeId);
             tvEmployeeCode = itemView.findViewById(R.id.tvEmployeeCode);
         }
+    }
+    public void updateList(List<Employee> filteredList) {
+        this.employeeList = filteredList;
+        notifyDataSetChanged();
     }
     public void getAvailabilityFromDatabase(int id, OnAvailabilityFetchedListener callback) {
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference();

@@ -567,12 +567,5 @@ public class ManageScheduleFragment extends Fragment {
             }
         }
     }
-
-
-
-
-
-
 }
-
 

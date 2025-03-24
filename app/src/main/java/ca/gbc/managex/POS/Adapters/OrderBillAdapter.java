@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -80,6 +81,18 @@ public class OrderBillAdapter extends RecyclerView.Adapter<OrderBillAdapter.Orde
             }
         });
 
+        holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                orderList.remove(position);
+                // Notify that the item at the position was removed
+                notifyItemRemoved(position);
+                notifyDataSetChanged();
+                ((MainPOSActivity) context).calculateBill();
+                return false;
+            }
+        });
+
         holder.edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -100,21 +113,78 @@ public class OrderBillAdapter extends RecyclerView.Adapter<OrderBillAdapter.Orde
 
             }
         });
+        holder.add.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                builder.setTitle("Enter Quantity");
+
+                // Create an EditText for user input
+                final EditText input = new EditText(context);
+                input.setInputType(InputType.TYPE_CLASS_NUMBER);
+                input.setHint("Enter quantity");
+                builder.setView(input);
+
+                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        String enteredQuantity = input.getText().toString().trim();
+                        if (!enteredQuantity.isEmpty()) {
+                            int newQuantity = Integer.parseInt(enteredQuantity);
+
+                            if (newQuantity > 0) {
+                                orderItem.setQuantity(newQuantity);
+                                holder.text1.setText(orderItem.getQuantity() + "x " + orderItem.getItem().getName() + " - " + orderItem.getSize().getSize());
+                                holder.text2.setText("$" + orderItem.getSize().getPrice() * orderItem.getQuantity());
+                                ((MainPOSActivity) context).calculateBill();
+                            } else {
+                                Toast.makeText(context, "Please enter a valid quantity", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    }
+                });
+
+                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+
+                builder.show();
+                return true; // Indicating that the long-click event is handled
+            }
+        });
+
 
         holder.delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(orderItem.getQuantity()==1){
-                orderList.remove(position);
-                    ((MainPOSActivity) context).calculateBill();
-            }
+                // Check if quantity is 1, meaning the item is about to be deleted
+                if (orderItem.getQuantity() == 1) {
+                    // Remove the item from the list
+                    orderList.remove(position);
+                    // Notify that the item at the position was removed
+                    notifyItemRemoved(position);
+                    notifyDataSetChanged();
 
-                orderItem.decreaseQuantity();
-                holder.text1.setText(orderItem.getQuantity() + "x " + orderItem.getItem().getName() + " - " + orderItem.getSize().getSize());
-                holder.text2.setText("$" + orderItem.getSize().getPrice() * orderItem.getQuantity());
-                ((MainPOSActivity) context).calculateBill();
+                    // If the list is empty after removing the item, notify the adapter
+                    if (orderList.isEmpty()) {
+                        notifyDataSetChanged(); // To ensure RecyclerView is refreshed
+                    }
+
+                    // Recalculate the bill after item removal
+                    ((MainPOSActivity) context).calculateBill();
+                } else {
+                    // If the quantity is greater than 1, just decrease the quantity
+                    orderItem.decreaseQuantity();
+                    holder.text1.setText(orderItem.getQuantity() + "x " + orderItem.getItem().getName() + " - " + orderItem.getSize().getSize());
+                    holder.text2.setText("$" + orderItem.getSize().getPrice() * orderItem.getQuantity());
+                    ((MainPOSActivity) context).calculateBill();
+                }
             }
         });
+
 
         holder.greenDot.setOnLongClickListener(new View.OnLongClickListener() {
             @Override

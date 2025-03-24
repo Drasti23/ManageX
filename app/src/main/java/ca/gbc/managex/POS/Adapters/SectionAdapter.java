@@ -1,5 +1,7 @@
 package ca.gbc.managex.POS.Adapters;
 
+import static ca.gbc.managex.R.drawable.box_background;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +16,7 @@ import java.util.List;
 
 import ca.gbc.managex.AdminControl.Classes.Item;
 import ca.gbc.managex.POS.Section;
+import ca.gbc.managex.R;
 
 public class SectionAdapter extends RecyclerView.Adapter<SectionAdapter.SectionViewHolder> {
 

@@ -60,10 +60,16 @@
         android:id="@+id/bottomNavigationView"
         android:layout_width="match_parent"
         android:layout_height="75dp"
+        app:backgroundTint="@color/card_green"
+        app:itemTextColor="@color/white"
+        app:itemTextAppearanceActive="@color/white"
+        app:itemIconTint="@color/app_button"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
+        app:itemActiveIndicatorStyle="@color/black"
+        app:itemHorizontalTranslationEnabled="true"
         app:menu="@menu/bottom_manager_menu"/>
 
 

@@ -73,11 +73,11 @@ public class SettingActivity extends AppCompatActivity {
 
     private void promptForPassword(String action) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Enter Password");
-
-        final EditText input = new EditText(this);
-        input.setInputType(android.text.InputType.TYPE_CLASS_NUMBER);
-        builder.setView(input);
+        EditText input;
+        View view = getLayoutInflater().inflate(R.layout.dialog_password_prompt,null);
+        input = view.findViewById(R.id.etPasswordInput);
+        builder.setView(view);
+        builder.setCancelable(false);
 
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override

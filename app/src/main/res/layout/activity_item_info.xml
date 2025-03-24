@@ -2,10 +2,10 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp"
-    android:id="@+id/main"
+    android:background="@color/white"
     tools:context=".AdminControl.ItemInfoActivity">
 
     <!-- App Bar -->
@@ -13,11 +13,14 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/theme_3"
         android:theme="@style/ThemeOverlay.Material3.Dark.ActionBar"
-        app:title="Item Info"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         app:navigationIcon="@drawable/baseline_arrow_back_24"
         app:popupTheme="@style/ThemeOverlay.Material3.Light"
+        app:title="Item Info"
+        app:titleTextColor="@color/black"
         tools:ignore="MissingConstraints" />
 
     <!-- Item Name -->
@@ -55,6 +58,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="4dp"
+        android:backgroundTint="@color/yeminBlue"
         android:text="Add Size"
         app:layout_constraintBottom_toTopOf="@+id/btnSave"
         app:layout_constraintEnd_toEndOf="parent"
@@ -65,23 +69,23 @@
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:text="Save"
-        app:layout_constraintBottom_toTopOf="@id/btnDelete"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:backgroundTint="@color/card_green"
         app:cornerRadius="16dp"
-        />
+        app:layout_constraintBottom_toTopOf="@id/btnDelete"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <!-- Delete Button -->
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnDelete"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
+        android:backgroundTint="@color/beet"
         android:text="Delete"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:textColor="@android:color/white"
         app:cornerRadius="16dp"
-        android:backgroundTint="#D72424"
-        android:textColor="@android:color/white"/>
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

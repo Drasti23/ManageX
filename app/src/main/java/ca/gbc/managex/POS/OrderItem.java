@@ -9,13 +9,15 @@ public class OrderItem {
     private int quantity;
     private String note;
     private boolean customized;
-
     public OrderItem(Item item, ItemSize size) {
         this.item = item;
         this.size = size;
         this.quantity = 1; // Default quantity is 1
         this.note = "";
         this.customized = false;
+    }
+    public OrderItem(){
+
     }
 
 
@@ -52,5 +54,9 @@ public class OrderItem {
     public void decreaseQuantity(){
             this.quantity--;
 
+    }
+
+    public void setQuantity(int newQuantity) {
+        this.quantity = newQuantity;
     }
 }
