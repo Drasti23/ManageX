@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    >
+
+    <!-- Pressed state -->
+    <item android:state_pressed="true">
+        <shape android:shape="rectangle">
+            <solid android:color="#D1C4E9" /> <!-- Light purple when pressed -->
+            <corners android:radius="8dp" />
+        </shape>
+    </item>
+
+    <!-- Selected state -->
+    <item android:state_selected="true">
+        <shape android:shape="rectangle">
+            <solid android:color="#9575CD" /> <!-- Medium purple when selected -->
+            <corners android:radius="8dp" />
+        </shape>
+    </item>
+
+    <!-- Default state -->
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="#EDE7F6" /> <!-- Very light purple -->
+            <corners android:radius="8dp" />
+        </shape>
+    </item>
+
+</selector>

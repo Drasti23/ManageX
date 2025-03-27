@@ -56,6 +56,7 @@ public class PaymentActivity extends AppCompatActivity {
     TextView changeToGive;
     double amountEntered=0.0;
     StringBuilder inputBuffer = new StringBuilder();
+    String orderTaker;
 
 
     boolean noTax = false;
@@ -71,6 +72,7 @@ public class PaymentActivity extends AppCompatActivity {
         orderId = i.getStringExtra("orderId");
         orderType = i.getStringExtra("type");
         currentDate = i.getStringExtra("date");
+        orderTaker = i.getStringExtra("orderTaker");
         reference = reference.child("Users").child(user.getUid()).child("OrderHistory").child(currentDate).child(orderType);
         binding.rvPayment.setLayoutManager(new LinearLayoutManager(PaymentActivity.this));
         adapter = new PaymentItemAdapter(PaymentActivity.this, orderItems);
@@ -139,23 +141,27 @@ public class PaymentActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(PaymentActivity.this, MainPOSActivity.class);
+                i.putExtra("employeeName",orderTaker);
                 startActivity(i);
                 finish();
             }
         });
-        binding.btnExactCash.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        binding.btnExactCash.setOnClickListener(v -> {
             amountEntered = paymentObj.getTotalAmountToPay();
+            orderObj.setPaymentMethod("Cash");
+            paymentObj.setAmountPayed(amountEntered);
+            orderObj.setPaymentInfo(paymentObj);
             moveOrderFromOpenToClose();
-            }
         });
-        binding.btnCard.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
 
-            }
+        binding.btnCard.setOnClickListener(v -> {
+            orderObj.setPaymentMethod("Card");
+            amountEntered = paymentObj.getTotalAmountToPay();
+            paymentObj.setAmountPayed(amountEntered);
+            orderObj.setPaymentInfo(paymentObj);
+            moveOrderFromOpenToClose();
         });
+
         binding.btnEnterAmount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -186,6 +192,7 @@ public class PaymentActivity extends AppCompatActivity {
 
                     if(change==0){
                         binding.tvTotalDue.setText("Payment Done!");
+                        orderObj.setPaymentMethod("Cash");
                         moveOrderFromOpenToClose();
                     }
 
@@ -233,12 +240,7 @@ public class PaymentActivity extends AppCompatActivity {
 
             }
         });
-        binding.btnCard.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
 
-            }
-        });
 
     }
     private void setupDigitButtonListeners() {
@@ -302,6 +304,8 @@ public class PaymentActivity extends AppCompatActivity {
         btnClearPayment.setOnClickListener(v -> {
             dialog.dismiss();
             binding.tvTotalDue.setText("Payment Done!");
+            orderObj.setPaymentMethod("Cash");
+            paymentObj.setChangeGiven(changeAmount);
             moveOrderFromOpenToClose();
         });
     }
@@ -373,6 +377,7 @@ public class PaymentActivity extends AppCompatActivity {
                     String orderTimeAndDate = snapshot.child("orderTimeAndDate").getValue(String.class);
                     boolean dinInOrder = snapshot.child("dinInOrder").getValue(Boolean.class);
                     int tableNumber = snapshot.child("tableNumber").getValue(Integer.class);
+                    String date = snapshot.child("date") .getValue(String.class);
                     orderObj.setOrderId(orderId);
                     orderObj.setOrderNumberOfTheDay(orderNumberOfTheDay);
                     orderObj.setOpen(true);
@@ -382,6 +387,8 @@ public class PaymentActivity extends AppCompatActivity {
                     orderObj.setTableNumber(tableNumber);
                     orderObj.setPaymentTimeAndDate("");
                     orderObj.setPaymentInfo(paymentObj);
+                    orderObj.setOrderTaker(orderTaker);
+                    orderObj.setDate(date);
                 }
             }
 
@@ -413,7 +420,8 @@ public class PaymentActivity extends AppCompatActivity {
                     discountAmount = (discountValue / 100.0) * subTotal;
                     newSubTotal = subTotal - discountAmount;
                 } else {
-                    newSubTotal = subTotal - discountValue;
+                    discountAmount = discountValue;
+                    newSubTotal = subTotal - discountAmount;
                 }
 
                 if (newSubTotal < 0) newSubTotal = 0;
@@ -423,8 +431,9 @@ public class PaymentActivity extends AppCompatActivity {
                 double newTotal = newSubTotal + paymentObj.getTax();
                 paymentObj.setTotalAmountToPay(newTotal);
                 // Update UI
+                paymentObj.setDiscount(discountAmount);
 
-                binding.tvDiscount.setText(String.valueOf(discountAmount));
+                binding.tvDiscount.setText(String.format("%.2f", discountAmount));
                 binding.tvSubTotal.setText(String.format("%.2f", paymentObj.getSubTotal()));
                 binding.tvTotal.setText(String.format("%.2f", paymentObj.getTotalAmountToPay()));
                 binding.tvTotalDue.setText(String.format("%.2f", paymentObj.getTotalAmountToPay()));
@@ -435,14 +444,16 @@ public class PaymentActivity extends AppCompatActivity {
         discountDialog.show();
     }
     public void moveOrderFromOpenToClose(){
-        binding.tvEnteredAmount.setText(amountEntered + "");
+        binding.tvEnteredAmount.setText(amountEntered + ""); // (Optional display)
         binding.tvTotalDue.setText("Payment Done.");
-        paymentObj.setAmountPayed(amountEntered);
-        paymentObj.setChangeGiven(0.0);
+
+
         orderObj.setPaymentStatus(true);
         orderObj.setOpen(false);
+
         paymentTimeAndDate = TimeAndDate.getCurrentDataAndTime();
         orderObj.setPaymentTimeAndDate(paymentTimeAndDate);
+
         orderObj.setPaymentInfo(paymentObj);
 reference.child("closed").child(orderId).setValue(orderObj).addOnCompleteListener(new OnCompleteListener<Void>() {
     @Override
@@ -457,6 +468,7 @@ reference.child("open").child(orderId).removeValue(new DatabaseReference.Complet
     @Override
     public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
         Intent i = new Intent(PaymentActivity.this, MainPOSActivity.class);
+        i.putExtra("employeeName",orderTaker);
         startActivity(i);
         finish();
     }

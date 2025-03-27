@@ -11,12 +11,20 @@ public class PaymentInfo {
     private int numberOfItems;
     private double amountPayed;
     private double changeGiven;
+    private double discount;
 
     public PaymentInfo(){
 
     }
 
 
+    public double getDiscount() {
+        return discount;
+    }
+
+    public void setDiscount(double discount) {
+        this.discount = discount;
+    }
 
     public PaymentInfo(ArrayList<OrderItem> orderItemList, int itemModified, double subTotal, double tax, double totalAmountToPay, int numberOfItems) {
         this.orderItemList = orderItemList;
@@ -25,6 +33,7 @@ public class PaymentInfo {
         this.tax = tax;
         this.totalAmountToPay = totalAmountToPay;
         this.numberOfItems = numberOfItems;
+        discount=0;
     }
 
     public ArrayList<OrderItem> getOrderItemList() {

@@ -10,8 +10,11 @@ public class OrderBill {
     private PaymentInfo paymentInfo;
     private boolean open;
     private String paymentTimeAndDate;
+    private String paymentMethod;
+    private String orderTaker;
+    private String date;
 
-    public OrderBill(String orderId, int orderNumberOfTheDay, String orderTimeAndDate, boolean paymentStatus,PaymentInfo paymentInfo) {
+    public OrderBill(String orderId, int orderNumberOfTheDay, String orderTimeAndDate, boolean paymentStatus,PaymentInfo paymentInfo,String date) {
         this.orderId = orderId;
         this.orderNumberOfTheDay = orderNumberOfTheDay;
         this.orderTimeAndDate = orderTimeAndDate;
@@ -21,12 +24,15 @@ public class OrderBill {
         this.paymentInfo = paymentInfo;
         open = true;
         paymentTimeAndDate="";
+        paymentMethod="";
+        orderTaker="";
+        this.date = date;
     }
     public OrderBill(){
 
     }
 
-    public OrderBill(String orderId, int orderNumberOfTheDay, String orderTimeAndDate, boolean paymentStatus,boolean dinInOrder,int tableNumber,PaymentInfo paymentInfo) {
+    public OrderBill(String orderId, int orderNumberOfTheDay, String orderTimeAndDate, boolean paymentStatus,boolean dinInOrder,int tableNumber,PaymentInfo paymentInfo,String date) {
         this.orderId = orderId;
         this.orderNumberOfTheDay = orderNumberOfTheDay;
         this.orderTimeAndDate = orderTimeAndDate;
@@ -36,6 +42,33 @@ public class OrderBill {
         this.paymentInfo = paymentInfo;
         this.open = open;
         paymentTimeAndDate="";
+        paymentMethod="";
+        orderTaker="";
+        this.date = date;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public String getPaymentMethod() {
+        return paymentMethod;
+    }
+
+    public String getOrderTaker() {
+        return orderTaker;
+    }
+
+    public void setOrderTaker(String orderTaker) {
+        this.orderTaker = orderTaker;
+    }
+
+    public void setPaymentMethod(String paymentMethod) {
+        this.paymentMethod = paymentMethod;
     }
 
     public String getPaymentTimeAndDate() {

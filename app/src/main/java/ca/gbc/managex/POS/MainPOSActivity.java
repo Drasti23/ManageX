@@ -37,6 +37,7 @@ import java.util.Date;
 import java.util.Locale;
 
 import ca.gbc.managex.AdminControl.Classes.Item;
+import ca.gbc.managex.MainActivity;
 import ca.gbc.managex.POS.Adapters.ItemGridAdapter;
 import ca.gbc.managex.POS.Adapters.OrderBillAdapter;
 import ca.gbc.managex.POS.Adapters.SectionAdapter;
@@ -92,6 +93,8 @@ public class MainPOSActivity extends AppCompatActivity {
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Intent i = new Intent(MainPOSActivity.this, MainActivity.class);
+                startActivity(i);
                 finish();
             }
         });
@@ -135,8 +138,10 @@ public class MainPOSActivity extends AppCompatActivity {
             public void onClick(View view) {
                 calculateBill();
                 currentTimeAndDate = getCurrentDataAndTime();
-                OrderBill billObject = new OrderBill(orderBillId,orderNumberOfDay, currentTimeAndDate,false,paymentInfo);
-                saveOrderBillInDatabase(billObject,"takeout");
+                OrderBill billObject = new OrderBill(orderBillId,orderNumberOfDay, currentTimeAndDate,false,paymentInfo,currentDate);
+                billObject.setOrderTaker(serverName);
+                billObject.setDate(currentDate);
+                saveOrderBillInDatabase(billObject,"takeout",serverName);
 
                 //saveCurrentOrder("takeout",billObject.getOrderId());
 
@@ -159,8 +164,10 @@ public class MainPOSActivity extends AppCompatActivity {
                         //Intent
                         int tableNumber = Integer.parseInt(input.getText().toString());
                         currentTimeAndDate = getCurrentDataAndTime();
-                        OrderBill billObject = new OrderBill(orderBillId,orderNumberOfDay, currentTimeAndDate,false,true,tableNumber,paymentInfo);
-                        saveOrderBillInDatabase(billObject,"dineIn");
+                        OrderBill billObject = new OrderBill(orderBillId,orderNumberOfDay, currentTimeAndDate,false,true,tableNumber,paymentInfo,currentDate);
+                        billObject.setOrderTaker(serverName);
+                        billObject.setDate(currentDate);
+                        saveOrderBillInDatabase(billObject,"dineIn",serverName);
 
                     }
                 });
@@ -177,7 +184,7 @@ public class MainPOSActivity extends AppCompatActivity {
         });
 
     }
-    private void saveOrderBillInDatabase(OrderBill billObject, String type) {
+    private void saveOrderBillInDatabase(OrderBill billObject, String type,String orderTaker) {
         getNumberOfOrderForDayFromDatabase(type, new OrderCountCallBack() {
             @Override
             public void onCountRetrieved(int count) {
@@ -185,7 +192,8 @@ public class MainPOSActivity extends AppCompatActivity {
 
                 billObject.setOrderId(orderId);
                 billObject.setOrderNumberOfTheDay(count);
-                billObject.setOpen(true); // Ensure order is marked as open when saving
+                billObject.setOpen(true);
+                billObject.setDate(currentDate);
 
                 databaseRef.child("OrderHistory").child(currentDate).child(type).child("open").child(billObject.getOrderId()).setValue(billObject)
                         .addOnCompleteListener(task -> {
@@ -195,6 +203,7 @@ public class MainPOSActivity extends AppCompatActivity {
                                 intent.putExtra("type",type);
                                 intent.putExtra("date",currentDate);
                                 intent.putExtra("orderId",billObject.getOrderId());
+                                intent.putExtra("orderTaker",orderTaker);
                                 startActivity(intent);
                             } else {
                                 Toast.makeText(MainPOSActivity.this, "There is a problem saving Order", Toast.LENGTH_SHORT).show();

@@ -12,6 +12,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import ca.gbc.managex.AdminControl.Dialogs.LoginDialog;
+import ca.gbc.managex.OrderHistory.OrderHistoryActivity;
 import ca.gbc.managex.POS.MainPOSActivity;
 import ca.gbc.managex.RegisterTime.RegisterTimeActivity;
 import ca.gbc.managex.databinding.ActivityMainBinding;
@@ -44,6 +45,8 @@ startActivity(i);
         binding.llOrderHistory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+Intent i = new Intent(MainActivity.this, OrderHistoryActivity.class);
+startActivity(i);
 
             }
         });
