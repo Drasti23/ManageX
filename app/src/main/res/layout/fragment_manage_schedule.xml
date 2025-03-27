@@ -111,100 +111,106 @@
         android:layout_weight="2"
         android:orientation="vertical">
 
+        <!-- Publish Button Below the Table -->
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
             android:fillViewport="true">
 
-            <TableLayout
-                android:id="@+id/tableSchedule"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:stretchColumns="*"
-                android:padding="8dp"
-                android:background="@android:color/white">
+            <HorizontalScrollView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
 
-                <TableRow>
-                    <TextView
-                        android:text="Employee"
-                        android:layout_width="100dp"
-                        android:layout_height="wrap_content"
-                        android:padding="8dp"
-                        android:textSize="14sp"
-                        android:gravity="center"
-                        android:background="@android:color/darker_gray"
-                        android:textColor="@android:color/white" />
+                <TableLayout
+                    android:id="@+id/tableSchedule"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/white"
+                    android:padding="8dp"
+                    android:stretchColumns="*">
 
-                    <TextView
-                        android:text="Sun"
-                        android:layout_width="60dp"
-                        android:layout_height="wrap_content"
-                        android:padding="8dp"
-                        android:gravity="center"
-                        android:background="@android:color/darker_gray"
-                        android:textColor="@android:color/white" />
+                    <TableRow>
 
-                    <TextView
-                        android:text="Mon"
-                        android:layout_width="60dp"
-                        android:layout_height="wrap_content"
-                        android:padding="8dp"
-                        android:gravity="center"
-                        android:background="@android:color/darker_gray"
-                        android:textColor="@android:color/white" />
+                        <TextView
+                            android:layout_width="100dp"
+                            android:layout_height="wrap_content"
+                            android:background="@android:color/darker_gray"
+                            android:gravity="center"
+                            android:padding="8dp"
+                            android:text="Employee"
+                            android:textColor="@android:color/white"
+                            android:textSize="14sp" />
 
-                    <TextView
-                        android:text="Tue"
-                        android:layout_width="60dp"
-                        android:layout_height="wrap_content"
-                        android:padding="8dp"
-                        android:gravity="center"
-                        android:background="@android:color/darker_gray"
-                        android:textColor="@android:color/white" />
+                        <TextView
+                            android:layout_width="60dp"
+                            android:layout_height="wrap_content"
+                            android:background="@android:color/darker_gray"
+                            android:gravity="center"
+                            android:padding="8dp"
+                            android:text="Sun"
+                            android:textColor="@android:color/white" />
 
-                    <TextView
-                        android:text="Wed"
-                        android:layout_width="60dp"
-                        android:layout_height="wrap_content"
-                        android:padding="8dp"
-                        android:gravity="center"
-                        android:background="@android:color/darker_gray"
-                        android:textColor="@android:color/white" />
+                        <TextView
+                            android:layout_width="60dp"
+                            android:layout_height="wrap_content"
+                            android:background="@android:color/darker_gray"
+                            android:gravity="center"
+                            android:padding="8dp"
+                            android:text="Mon"
+                            android:textColor="@android:color/white" />
 
-                    <TextView
-                        android:text="Thu"
-                        android:layout_width="60dp"
-                        android:layout_height="wrap_content"
-                        android:padding="8dp"
-                        android:gravity="center"
-                        android:background="@android:color/darker_gray"
-                        android:textColor="@android:color/white" />
+                        <TextView
+                            android:layout_width="60dp"
+                            android:layout_height="wrap_content"
+                            android:background="@android:color/darker_gray"
+                            android:gravity="center"
+                            android:padding="8dp"
+                            android:text="Tue"
+                            android:textColor="@android:color/white" />
 
-                    <TextView
-                        android:text="Fri"
-                        android:layout_width="60dp"
-                        android:layout_height="wrap_content"
-                        android:padding="8dp"
-                        android:gravity="center"
-                        android:background="@android:color/darker_gray"
-                        android:textColor="@android:color/white" />
+                        <TextView
+                            android:layout_width="60dp"
+                            android:layout_height="wrap_content"
+                            android:background="@android:color/darker_gray"
+                            android:gravity="center"
+                            android:padding="8dp"
+                            android:text="Wed"
+                            android:textColor="@android:color/white" />
 
-                    <TextView
-                        android:text="Sat"
-                        android:layout_width="60dp"
-                        android:layout_height="wrap_content"
-                        android:padding="8dp"
-                        android:gravity="center"
-                        android:background="@android:color/darker_gray"
-                        android:textColor="@android:color/white" />
-                </TableRow>
+                        <TextView
+                            android:layout_width="60dp"
+                            android:layout_height="wrap_content"
+                            android:background="@android:color/darker_gray"
+                            android:gravity="center"
+                            android:padding="8dp"
+                            android:text="Thu"
+                            android:textColor="@android:color/white" />
 
-            </TableLayout>
+                        <TextView
+                            android:layout_width="60dp"
+                            android:layout_height="wrap_content"
+                            android:background="@android:color/darker_gray"
+                            android:gravity="center"
+                            android:padding="8dp"
+                            android:text="Fri"
+                            android:textColor="@android:color/white" />
+
+                        <TextView
+                            android:layout_width="60dp"
+                            android:layout_height="wrap_content"
+                            android:background="@android:color/darker_gray"
+                            android:gravity="center"
+                            android:padding="8dp"
+                            android:text="Sat"
+                            android:textColor="@android:color/white" />
+                    </TableRow>
+
+                </TableLayout>
+            </HorizontalScrollView>
 
         </ScrollView>
 
-        <!-- Publish Button Below the Table -->
         <Button
             android:id="@+id/btnPublish"
             android:layout_width="wrap_content"

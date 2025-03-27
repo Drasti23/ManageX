@@ -1,12 +1,14 @@
 package ca.gbc.managex.AdminControl;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+import androidx.appcompat.widget.Toolbar;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
@@ -35,6 +37,7 @@ import ca.gbc.managex.AdminControl.Adapter.SizePriceAdapter;
 import ca.gbc.managex.AdminControl.Classes.Item;
 import ca.gbc.managex.AdminControl.Classes.ItemSize;
 import ca.gbc.managex.R;
+import ca.gbc.managex.AdminControl.ManageItemActivity;
 
 public class ItemInfoActivity extends AppCompatActivity {
     String itemName,sectionName;
@@ -47,16 +50,30 @@ public class ItemInfoActivity extends AppCompatActivity {
     Button save,delete,addSize;
     EditText tvItemName;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_item_info);
+
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        toolbar.setNavigationOnClickListener(v -> {
+            Intent intent = new Intent(ItemInfoActivity.this, ManageItemActivity.class);
+            startActivity(intent);
+            finish();
+        });
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
+
+
         tvItemName = findViewById(R.id.tvItemName);
         recyclerView = findViewById(R.id.rvSizePriceList);
         save = findViewById(R.id.btnSave);
@@ -112,14 +129,14 @@ public class ItemInfoActivity extends AppCompatActivity {
                         .setPositiveButton("Delete", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
-                            deleteItemFromDatabase(itemName);
+                                deleteItemFromDatabase(itemName);
                                 finish();
                             }
                         })
                         .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
-                               dialogInterface.cancel();
+                                dialogInterface.cancel();
 
                             }
                         });
@@ -176,11 +193,11 @@ public class ItemInfoActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if(snapshot.exists()){
-                for(DataSnapshot child : snapshot.getChildren()){
-                    ItemSize itemSize = child.getValue(ItemSize.class);
-                    itemSizeList.add(itemSize);
-                }
-                adapter.notifyDataSetChanged();
+                    for(DataSnapshot child : snapshot.getChildren()){
+                        ItemSize itemSize = child.getValue(ItemSize.class);
+                        itemSizeList.add(itemSize);
+                    }
+                    adapter.notifyDataSetChanged();
                 }
             }
 

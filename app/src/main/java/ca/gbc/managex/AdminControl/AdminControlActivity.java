@@ -18,26 +18,27 @@ public class AdminControlActivity extends AppCompatActivity  implements BottomNa
     ImageView back;
 
 
+    //
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_control);
 
-        bottomNavigationView
-                = findViewById(R.id.bottomNavigationView);
+        bottomNavigationView = findViewById(R.id.bottomNavigationView);
+        bottomNavigationView.setOnNavigationItemSelectedListener(this);
 
-        bottomNavigationView
-                .setOnNavigationItemSelectedListener(this);
-        bottomNavigationView.setSelectedItemId(R.id.person);
+        // Check for intent extra
+        String fragmentToOpen = getIntent().getStringExtra("openFragment");
+        if ("POS".equals(fragmentToOpen)) {
+            bottomNavigationView.setSelectedItemId(R.id.pos); // Select POS
+        } else {
+            bottomNavigationView.setSelectedItemId(R.id.person); // Default
+        }
+
         back = findViewById(R.id.backButton);
-        back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });
-
+        back.setOnClickListener(view -> finish());
     }
+
     ManageEmployeeFragment firstFragment = new ManageEmployeeFragment();
     ManagePOSFragment secondFragment = new ManagePOSFragment();
     @Override

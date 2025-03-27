@@ -201,7 +201,7 @@ public class ManageScheduleFragment extends Fragment {
         }
 
         dayCell.setText(existingText + schedule.getStartTime() + " - " + schedule.getEndTime());
-        dayCell.setBackgroundColor(getResources().getColor(android.R.color.holo_blue_light));
+        dayCell.setBackgroundColor(getResources().getColor(R.color.app_button));
 
         Log.d("UIUpdate", "Updated UI for: " + schedule.getEmpName() + " on " + schedule.getDay());
     }

@@ -5,6 +5,7 @@ import static android.view.View.VISIBLE;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.text.InputType;
 import android.util.Log;
@@ -90,6 +91,8 @@ public class MainPOSActivity extends AppCompatActivity {
         constraintLayout = findViewById(R.id.biillCL);
         back = findViewById(R.id.backButton);
         server = findViewById(R.id.tvOrderTaker);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

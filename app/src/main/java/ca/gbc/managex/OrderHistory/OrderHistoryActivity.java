@@ -9,10 +9,12 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.google.android.material.navigation.NavigationBarView;
@@ -30,6 +32,10 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.Locale;
 
+import ca.gbc.managex.AdminControl.AdminControlActivity;
+import ca.gbc.managex.AdminControl.ItemInfoActivity;
+import ca.gbc.managex.AdminControl.ManageItemActivity;
+import ca.gbc.managex.MainActivity;
 import ca.gbc.managex.OrderHistory.Adapters.OrdersAdapter;
 import ca.gbc.managex.POS.OrderBill;
 import ca.gbc.managex.POS.OrderItem;
@@ -59,6 +65,13 @@ public class OrderHistoryActivity extends AppCompatActivity {
         binding = ActivityOrderHistoryBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         reference = reference.child("Users").child(user.getUid()).child("OrderHistory");
+
+        ImageView back_button = findViewById(R.id.back_button);
+        back_button.setOnClickListener(v -> {
+            Intent intent = new Intent(OrderHistoryActivity.this, MainActivity.class);
+            startActivity(intent);
+            finish();
+        });
 
         // Initialize RecyclerView
         binding.rvOrders.setHasFixedSize(true);

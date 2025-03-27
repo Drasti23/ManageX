@@ -86,52 +86,66 @@ public class PaymentActivity extends AppCompatActivity {
 
         binding.btnDiscount.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-             // Step 1: Ask for manager code
-                    AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
-                    builder.setTitle("Manager Code");
+            public void onClick(View v) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(PaymentActivity.this);
+                builder.setTitle("Manager Code");
 
-                    final EditText input = new EditText(view.getContext());
-                    input.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_VARIATION_PASSWORD);
-                    builder.setView(input);
+                final EditText input = new EditText(PaymentActivity.this);
+                input.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_VARIATION_PASSWORD);
+                builder.setView(input);
 
-                    builder.setPositiveButton("Submit", (dialog, which) -> {
-                        String managerCode = input.getText().toString();
-                        if (managerCode.equals("1000")) {
-                            // Step 2: Ask discount type (Percent or Amount)
-                            AlertDialog.Builder typeDialog = new AlertDialog.Builder(view.getContext());
-                            typeDialog.setTitle("Select Discount Type");
+                builder.setPositiveButton("Submit", (dialog, which) -> {
+                    String enteredCode = input.getText().toString();
 
-                            String[] discountTypes = {"Percent", "Amount"};
-                            typeDialog.setItems(discountTypes, (dialogInterface, whichType) -> {
-                                if (whichType == 0) {
-                                    // Percent
-                                    askDiscountValue(true);
-                                } else {
-                                    // Amount
-                                    askDiscountValue(false);
-                                }
-                            });
+                    String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                    DatabaseReference credRef = FirebaseDatabase.getInstance().getReference("Users")
+                            .child(uid).child("credentials");
 
-                            typeDialog.show();
-                        } else {
-                            Toast.makeText(view.getContext(), "Incorrect Manager Code", Toast.LENGTH_SHORT).show();
+                    credRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            String managerCodeFromDB = snapshot.child("managerCode").getValue(String.class);
+                            if (managerCodeFromDB == null) managerCodeFromDB = "1000"; // fallback
+
+                            if (enteredCode.equals(managerCodeFromDB)) {
+                                AlertDialog.Builder typeDialog = new AlertDialog.Builder(PaymentActivity.this);
+                                typeDialog.setTitle("Select Discount Type");
+
+                                String[] discountTypes = {"Percent", "Amount"};
+                                typeDialog.setItems(discountTypes, (dialogInterface, whichType) -> {
+                                    if (whichType == 0) {
+                                        askDiscountValue(true);
+                                    } else {
+                                        askDiscountValue(false);
+                                    }
+                                });
+
+                                typeDialog.show();
+                            } else {
+                                Toast.makeText(PaymentActivity.this, "Incorrect Manager Code", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+                            Toast.makeText(PaymentActivity.this, "Error accessing credentials", Toast.LENGTH_SHORT).show();
                         }
                     });
+                });
 
-                    builder.setNegativeButton("Cancel", (dialog, which) -> dialog.cancel());
-                    builder.show();
-
-            }});
+                builder.setNegativeButton("Cancel", (dialog, which) -> dialog.cancel());
+                builder.show();
+            }
+        });
 
 
 
         binding.btnClearAmount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-            amountEntered = 0.0;
-            binding.tvEnteredAmount.setText("");
-            inputBuffer.setLength(0); // clears the buffer
+                amountEntered = 0.0;
+                binding.tvEnteredAmount.setText("");
+                inputBuffer.setLength(0); // clears the buffer
                 binding.tvEnteredAmount.setText("");
                 amountEntered = 0.0;
 
@@ -394,7 +408,7 @@ public class PaymentActivity extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-        Toast.makeText(PaymentActivity.this,"Database Error: "+error.getMessage(),Toast.LENGTH_SHORT).show();
+                Toast.makeText(PaymentActivity.this,"Database Error: "+error.getMessage(),Toast.LENGTH_SHORT).show();
                 System.out.println("Database Error: "+error.getMessage());
             }
         });
@@ -455,24 +469,24 @@ public class PaymentActivity extends AppCompatActivity {
         orderObj.setPaymentTimeAndDate(paymentTimeAndDate);
 
         orderObj.setPaymentInfo(paymentObj);
-reference.child("closed").child(orderId).setValue(orderObj).addOnCompleteListener(new OnCompleteListener<Void>() {
-    @Override
-    public void onComplete(@NonNull Task<Void> task) {
-   if(task.isSuccessful()){
-       Toast.makeText(PaymentActivity.this,"Payment Done!",Toast.LENGTH_SHORT).show();
-        }
-        }
-    });
+        reference.child("closed").child(orderId).setValue(orderObj).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if(task.isSuccessful()){
+                    Toast.makeText(PaymentActivity.this,"Payment Done!",Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
 
-reference.child("open").child(orderId).removeValue(new DatabaseReference.CompletionListener() {
-    @Override
-    public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
-        Intent i = new Intent(PaymentActivity.this, MainPOSActivity.class);
-        i.putExtra("employeeName",orderTaker);
-        startActivity(i);
-        finish();
-    }
-});
+        reference.child("open").child(orderId).removeValue(new DatabaseReference.CompletionListener() {
+            @Override
+            public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
+                Intent i = new Intent(PaymentActivity.this, MainPOSActivity.class);
+                i.putExtra("employeeName",orderTaker);
+                startActivity(i);
+                finish();
+            }
+        });
 
 
 
