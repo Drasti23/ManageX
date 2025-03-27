@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="red">#FF0000</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="bgSplash">#f6efc8</color>
@@ -14,10 +15,31 @@
     <color name="textColor">#FFFFFF</color> <!-- White text color -->
     <color name="avatarColor">#F1F5FB</color> <!-- Light blueish background for the avatar area -->
     <color name="avatarOutline">#A0CD65</color> <!-- Outline for the avatar -->
-    <color name="gray">#808080</color>
-    <color name="green">#008000</color>
-    <color name="red">#FF0000</color>
-    <color name="blue">#0000FF</color>
-    <color name="lightGray">#D3D3D3</color>
+    <color name="purple_5">#000505</color>
+    <color name="purple_4">#3B3355</color>
+    <color name="purple_3">#5D5D81</color>
+    <color name="purple_2">#BFCDE0</color>
+    <color name="purple_1">#FEFCFD</color>
+    <color name="theme_1">#C2D3CD</color>
+    <color name="theme_2">#AFBFC0</color>
+    <color name="theme_3">#9FA4A9</color>
+    <color name="theme_4">#847E89</color>
+    <color name="theme_5">#56494C</color>
+    <color name="blue_primary">#0057B8</color>
+    <color name="blue_secondary">#0077CC</color>
+    <color name="light_background">#F8F9FA</color>
+    <color name="gray">#757575</color>
+    <color name="dark_secondary">#004488</color>
+    <color name="dark_background">#121212</color>
+    <color name="app_background">#F7EBE8</color>
+    <color name="gray1">#444140</color>
+    <color name="app_button">#ECBE24</color>
+    <color name="albaster">#ECEBE4</color>
+    <color name="olive">#8AA399</color>
+<color name="beet">#B23A48</color>
+    <color name="yeminBlue">#3E517A</color>
+    <color name="okeBlue">#3E92CC</color>
+
+
 
 </resources>

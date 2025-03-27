@@ -3,8 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp"
-    android:background="@color/white">
+    android:background="@color/white"
+    android:padding="16dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -14,61 +14,59 @@
         <ImageView
             android:id="@+id/imageView"
             android:layout_width="300px"
-            android:layout_height="300px"
+            android:layout_height="250px"
             android:layout_gravity="center"
             android:src="@drawable/img" />
 
         <TextView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="80px"
             android:layout_gravity="center"
-            android:layout_margin="30px"
-            android:layout_marginBottom="16dp"
+            android:layout_margin="40px"
+            android:layout_marginBottom="20dp"
             android:fontFamily="@font/lato_bold"
             android:text="Login"
             android:textColor="@color/bgBlue"
-            android:textSize="30sp"
+            android:textSize="34sp"
             android:textStyle="bold" />
-
-
-
 
 
         <EditText
             android:id="@+id/etLoginEmail"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="@color/black"
+            android:layout_width="350sp"
+            android:layout_height="60sp"
+            android:layout_gravity="center"
+            android:layout_marginTop="20sp"
+            android:drawableEnd="@drawable/baseline_person_24"
             android:fontFamily="@font/lato_bold"
             android:hint="Restaurant Email"
             android:inputType="textEmailAddress"
-            android:layout_marginTop="10dp"
-            android:drawableEnd="@drawable/baseline_person_24"
             android:padding="10dp"
+            android:textColor="@color/black"
             android:textSize="20sp" />
-
 
 
         <EditText
             android:id="@+id/etLoginPassword"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/lato_bold"
-            android:textColor="@color/black"
-            android:hint="Password"
-            android:layout_marginTop="10dp"
-            android:inputType="textPassword"
+            android:layout_width="350sp"
+            android:layout_height="60sp"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
             android:drawableEnd="@drawable/baseline_password_24"
+            android:fontFamily="@font/lato_bold"
+            android:hint="Password"
+            android:inputType="textPassword"
             android:padding="10dp"
+            android:textColor="@color/black"
             android:textSize="20sp" />
-
 
 
         <Button
             android:id="@+id/btnLogin"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_width="200sp"
+            android:layout_height="60sp"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
             android:backgroundTint="@color/bgBlue"
             android:fontFamily="@font/lato_bold"
             android:text="Next"
@@ -79,27 +77,29 @@
         <ImageView
             android:id="@+id/googleLoginIV"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:srcCompat="@drawable/googleimg"
+            android:layout_height="60sp"
+            android:layout_marginTop="10dp"
 
-            android:layout_marginTop="16dp"/>
+            app:srcCompat="@drawable/googleimg" />
 
         <TextView
             android:id="@+id/tvRegister"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:text="Not registered? Register here."
             android:textColor="@color/black"
-            android:layout_marginTop="16dp"
-            android:text="Not registered? Register here." />
+            android:textSize="24sp" />
 
         <TextView
             android:id="@+id/tvForgot"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:text="Forgot Password"
             android:textColor="@color/black"
-            android:layout_marginTop="16sp"
-            android:text="Forgot Password" />
+            android:textSize="24sp" />
     </LinearLayout>
 </ScrollView>

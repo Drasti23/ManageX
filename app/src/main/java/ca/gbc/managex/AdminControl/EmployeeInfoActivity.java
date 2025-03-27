@@ -21,10 +21,11 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import ca.gbc.managex.AdminControl.Dialogs.EditEmployeeDialog;
 import ca.gbc.managex.R;
 
 public class EmployeeInfoActivity extends AppCompatActivity {
-    TextView id,name,email,contact,joiningData,pass,code,position;
+    TextView id,name,email,contact,joiningData,pass,code,position,type,payRate;
     Button delete,attach,edit;
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference reference = database.getReference();
@@ -54,8 +55,12 @@ public class EmployeeInfoActivity extends AppCompatActivity {
         delete = findViewById(R.id.btnEmpDelete);
         edit = findViewById(R.id.btnEmpEdit);
         back = findViewById(R.id.backButton);
+        payRate = findViewById(R.id.tvEmpPayRate);
+        type = findViewById(R.id.tvEmpType);
 
         String emp_name = getIntent().getStringExtra("emp_name");
+        String emp_fname = getIntent().getStringExtra("emp_fname");
+        String emp_lname = getIntent().getStringExtra("emp_lname");
         String emp_code = getIntent().getStringExtra("emp_code");
         String emp_position = getIntent().getStringExtra("emp_position");
         String emp_email = getIntent().getStringExtra("emp_email");
@@ -63,6 +68,8 @@ public class EmployeeInfoActivity extends AppCompatActivity {
         String emp_pass = getIntent().getStringExtra("emp_password");
         String emp_joining_date = getIntent().getStringExtra("emp_joining_date");
         String emp_contact = getIntent().getStringExtra("emp_contact");
+        String emp_type = getIntent().getStringExtra("emp_type");
+        String emp_rate = getIntent().getStringExtra("emp_rate");
 
         id.setText(emp_id);
         name.setText(emp_name);
@@ -71,6 +78,8 @@ public class EmployeeInfoActivity extends AppCompatActivity {
         joiningData.setText(emp_joining_date);
         pass.setText(emp_pass);
         code.setText(emp_code);
+        payRate.setText(emp_rate);
+        type.setText(emp_type);
         position.setText(emp_position);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -104,16 +113,34 @@ public class EmployeeInfoActivity extends AppCompatActivity {
             }
         });
 
+        edit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                EditEmployeeDialog dialog = EditEmployeeDialog.newInstance(
+                        auth.getUid(),
+                        emp_id,
+                        emp_fname,emp_lname,
+                        emp_email,
+                        emp_contact,
+                        emp_code,
+                        emp_position,
+                        emp_joining_date,
+                        emp_pass,emp_rate,emp_type
+                );
+                dialog.show(getSupportFragmentManager(), "EditEmployeeDialog");
+            }
+        });
+
     }
     public void findEmployeeToDelete(String empId){
 
 
         DatabaseReference empReference = reference.child("Users").child(auth.getUid()).child("employeeInfo").child(empId);
-                empReference.removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void unused) {
-                        Toast.makeText(EmployeeInfoActivity.this,"Employee deleted",Toast.LENGTH_SHORT).show();
-                    }
-                });
+        empReference.removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void unused) {
+                Toast.makeText(EmployeeInfoActivity.this,"Employee deleted",Toast.LENGTH_SHORT).show();
+            }
+        });
     }
-   }
+}

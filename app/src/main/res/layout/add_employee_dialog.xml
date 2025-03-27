@@ -180,6 +180,46 @@
                 android:singleLine="true"
                  />
             </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginEnd="32dp"
+                android:hint="Pay rate (hourly)"
+                app:errorEnabled="true"
+                >
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etPayRate"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:inputType="number|numberDecimal"
+                    android:maxLength="10"
+                    android:singleLine="true" />
+
+
+            </com.google.android.material.textfield.TextInputLayout><com.google.android.material.textfield.TextInputLayout
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginEnd="32dp"
+                android:hint="Part Time/Full Time/Contract"
+                app:errorEnabled="true"
+                >
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etEmpType"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:maxLength="10"
+                    android:singleLine="true" />
+
+
+            </com.google.android.material.textfield.TextInputLayout>
 
             <!-- Text Label -->
             <TextView
@@ -219,7 +259,6 @@
                 android:layout_height="50dp"
                 android:layout_gravity="center"
                 android:layout_marginTop="15dp"
-                android:backgroundTint="@color/dark_blue"
                 android:text="Save"
                 android:textColor="@color/white" />
         </LinearLayout>

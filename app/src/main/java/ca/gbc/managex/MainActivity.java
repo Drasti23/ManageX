@@ -13,6 +13,7 @@ import androidx.core.view.WindowInsetsCompat;
 
 import ca.gbc.managex.AdminControl.Dialogs.LoginDialog;
 import ca.gbc.managex.POS.MainPOSActivity;
+import ca.gbc.managex.RegisterTime.RegisterTimeActivity;
 import ca.gbc.managex.databinding.ActivityMainBinding;
 import ca.gbc.managex.setting.SettingActivity;
 
@@ -27,8 +28,8 @@ public class MainActivity extends AppCompatActivity {
         binding.llPos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(MainActivity.this, MainPOSActivity.class);
-                startActivity(i);
+                LoginDialog alert = new LoginDialog();
+                alert.showDialog(MainActivity.this, MainPOSActivity.class);
 
             }
         });
@@ -51,7 +52,7 @@ startActivity(i);
             @Override
             public void onClick(View view) {
                 LoginDialog alert = new LoginDialog();
-                alert.showDialog(MainActivity.this);
+                alert.showDialog(MainActivity.this, RegisterTimeActivity.class);
             }
         });
 

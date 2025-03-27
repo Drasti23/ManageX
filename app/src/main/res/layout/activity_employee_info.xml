@@ -17,7 +17,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="60dp"
         android:text="Employee Details"
-        android:textSize="20sp"
+        android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -38,6 +38,7 @@
             android:orientation="vertical">
 
             <!-- Employee Details Card -->
+
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -53,125 +54,154 @@
                     android:padding="16dp">
 
                     <!-- Dynamic Details -->
+
                     <TextView
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="30sp"
                         android:text="Name:"
-                        android:textSize="16sp"
+                        android:textSize="20sp"
                         android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/tvEmpName"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="30sp"
                         android:layout_marginBottom="8dp"
                         android:text="Dummy Name"
-                        android:textSize="14sp" />
+                        android:textSize="18sp" />
 
                     <TextView
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="30sp"
                         android:text="ID:"
-                        android:textSize="16sp"
+                        android:textSize="20sp"
                         android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/tvEmpId"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="30sp"
                         android:layout_marginBottom="8dp"
                         android:text="Dummy ID"
-                        android:textSize="14sp" />
+                        android:textSize="18sp" />
 
                     <TextView
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="30sp"
                         android:text="Code: "
-                        android:textSize="16sp"
+                        android:textSize="20sp"
                         android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/tvEmpCode"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="30sp"
                         android:layout_marginBottom="8dp"
                         android:text="Dummy Code"
-                        android:textSize="14sp" />
+                        android:textSize="18sp" />
 
                     <TextView
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="30sp"
                         android:text="Password: "
-                        android:textSize="16sp"
+                        android:textSize="20sp"
                         android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/tvEmppass"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="30sp"
                         android:layout_marginBottom="8dp"
                         android:text="Dummy Password"
-                        android:textSize="14sp" />
+                        android:textSize="18sp" />
 
                     <TextView
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="30sp"
                         android:text="Position:"
-                        android:textSize="16sp"
+                        android:textSize="20sp"
                         android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/tvEmpPosition"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="30sp"
                         android:layout_marginBottom="8dp"
                         android:text="Dummy Position"
-                        android:textSize="14sp" />
+                        android:textSize="18sp" />
 
                     <TextView
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="30sp"
                         android:text="Phone Number:"
-                        android:textSize="16sp"
+                        android:textSize="20sp"
                         android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/tvEmpPhoneNum"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="30sp"
                         android:layout_marginBottom="8dp"
                         android:text="Dummy Number"
-                        android:textSize="14sp" />
+                        android:textSize="18sp" />
 
                     <TextView
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="30sp"
                         android:text="Email:"
-                        android:textSize="16sp"
+                        android:textSize="20sp"
                         android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/tvEmpEmail"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="30sp"
                         android:layout_marginBottom="8dp"
                         android:text="Dummy Email"
-                        android:textSize="14sp" />
+                        android:textSize="18sp" />
 
                     <TextView
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="30sp"
                         android:text="Joining Date:"
-                        android:textSize="16sp"
+                        android:textSize="20sp"
                         android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/tvEmpJoiningDate"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="30sp"
                         android:layout_marginBottom="8dp"
                         android:text="Dummy Date"
-                        android:textSize="14sp" />
+                        android:textSize="18sp" />
+ <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="30sp"
+                        android:text="Pay Rate (Hourly) :"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tvEmpPayRate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="30sp"
+                        android:layout_marginBottom="8dp"
+                        android:text="Dummy PayRate"
+                        android:textSize="18sp" />
+ <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="30sp"
+                        android:text="Type :"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tvEmpType"
+                        android:layout_width="wrap_content"
+                        android:layout_height="30sp"
+                        android:layout_marginBottom="8dp"
+                        android:text="Full Time/Part Time "
+                        android:textSize="18sp" />
 
                 </LinearLayout>
             </androidx.cardview.widget.CardView>

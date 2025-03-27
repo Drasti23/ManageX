@@ -11,11 +11,11 @@
         android:orientation="horizontal"
         >
 
-    <ImageView
-        android:layout_width="50sp"
-        android:layout_height="50sp"
-        android:layout_gravity="center_vertical"
-        android:src="@drawable/baseline_person_24" />
+        <ImageView
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_gravity="center_vertical"
+            android:src="@drawable/person_apron_24px" />
 
     <TextView
         android:id="@+id/tvEmpNameCard"

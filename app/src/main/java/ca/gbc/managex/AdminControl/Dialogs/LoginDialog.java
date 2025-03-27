@@ -27,9 +27,11 @@ import ca.gbc.managex.RegisterTime.RegisterTimeActivity;
 public class LoginDialog {
 
     private static final String TAG = "LoginDialog";
+    Class c;
 
 
-    public void showDialog(Activity activity) {
+    public void showDialog(Activity activity,Class c) {
+        this.c = c;
         final Dialog dialog = new Dialog(activity);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setCancelable(true);
@@ -85,7 +87,7 @@ public class LoginDialog {
                         String employeeId = getStringValue(empSnapshot,"id");
 
                         // Successful login
-                        Intent intent = new Intent(activity, RegisterTimeActivity.class);
+                        Intent intent = new Intent(activity,c);
                         intent.putExtra("employeeName",employeeName);
                         intent.putExtra("employeeId",employeeId);
                         activity.startActivity(intent);

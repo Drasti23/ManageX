@@ -42,6 +42,8 @@ public class EmployeeCardAdapter extends RecyclerView.Adapter<EmployeeCardAdapte
         holder.itemView.setOnClickListener(v -> {
             Intent intent = new Intent(context, EmployeeInfoActivity.class);
             intent.putExtra("emp_name", name);
+            intent.putExtra("emp_fname",employee.getFirstName());
+            intent.putExtra("emp_lname",employee.getLastName());
             intent.putExtra("emp_id",String.valueOf(employee.getId()));
             intent.putExtra("emp_code", String.valueOf(employee.getEmpCode()));
             intent.putExtra("emp_password", String.valueOf(employee.getEmpPass()));
@@ -49,6 +51,8 @@ public class EmployeeCardAdapter extends RecyclerView.Adapter<EmployeeCardAdapte
             intent.putExtra("emp_contact",employee.getContactNumber());
             intent.putExtra("emp_email", employee.getEmail());
             intent.putExtra("emp_joining_date",employee.getJoiningDate());
+            intent.putExtra("emp_type",employee.getEmpType());
+            intent.putExtra("emp_rate",String.valueOf(employee.getPayRate()));
             context.startActivity(intent);
         });
     }

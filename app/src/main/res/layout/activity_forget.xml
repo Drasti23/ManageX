@@ -31,21 +31,22 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_margin="30px"
-                android:layout_marginBottom="16dp"
+                android:layout_margin="60px"
+                android:layout_marginBottom="60dp"
                 android:fontFamily="@font/lato_bold"
                 android:text="Forget Password"
-                android:textColor="@color/bgBlue"
 
+                android:textColor="@color/bgBlue"
                 android:textSize="30sp"
                 android:textStyle="bold" />
 
 
             <EditText
                 android:id="@+id/etResetPassword"
-                android:layout_width="match_parent"
+                android:layout_width="300sp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
                 android:drawableEnd="@drawable/baseline_email_24"
                 android:fontFamily="@font/lato_bold"
                 android:hint="Enter an Email"
@@ -56,9 +57,10 @@
 
             <Button
                 android:id="@+id/btnResetPassword"
-                android:layout_width="match_parent"
+                android:layout_width="200sp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="40dp"
                 android:backgroundTint="@color/bgBlue"
                 android:fontFamily="@font/lato_bold"
                 android:text="Reset Password"

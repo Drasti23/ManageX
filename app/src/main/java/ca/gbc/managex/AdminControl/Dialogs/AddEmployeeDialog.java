@@ -52,8 +52,9 @@ public class AddEmployeeDialog extends DialogFragment implements AdapterView
     private Spinner spinner;
 
     private Button datePicker,saveEmployee;
-    private String selectedDate,selectedPosition,firstName,lastName,contactNumber,email, employeeType;
-    public TextInputEditText etFName,etLName,etContactNumber,etEmail,etPass,etCode,etEmployeeType;
+    private String selectedDate,selectedPosition,firstName,lastName,contactNumber,email,empType;
+    private double payRate;
+    public TextInputEditText etFName,etLName,etContactNumber,etEmail,etPass,etCode,etPayRate,etEmpType;
     private int code,pass;
     private LocalDate localDate = LocalDate.now();
     private AddEmployeeDialogBinding binding;
@@ -62,11 +63,16 @@ public class AddEmployeeDialog extends DialogFragment implements AdapterView
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference reference = database.getReference().child("Users").child(user.getUid());
 
+    private EmployeeAddedListener employeeAddedListener;
     public static final String TAG = "addEmployeeDialog";
-    public static AddEmployeeDialog display(FragmentManager fragmentManager){
+    public static AddEmployeeDialog display(FragmentManager fragmentManager,EmployeeAddedListener listener){
         AddEmployeeDialog dialog = new AddEmployeeDialog();
+        dialog.employeeAddedListener = listener;
         dialog.show(fragmentManager,TAG);
         return dialog;
+    }
+    public interface EmployeeAddedListener{
+        void onEmployee();
     }
     public interface EmployeeCountCallback {
         void onCountRetrieved(int count);
@@ -94,8 +100,8 @@ public class AddEmployeeDialog extends DialogFragment implements AdapterView
         etCode = view.findViewById(R.id.etEmpCode);
         etPass = view.findViewById(R.id.etEmpPass);
         etEmail = view.findViewById(R.id.etEmpEmail);
-        etEmployeeType = view.findViewById(R.id.etEmpType);
-
+        etPayRate = view.findViewById(R.id.etPayRate);
+        etEmpType = view.findViewById(R.id.etEmpType);
         spinner.setOnItemSelectedListener(this);
         return view;
     }
@@ -107,7 +113,7 @@ public class AddEmployeeDialog extends DialogFragment implements AdapterView
         toolbar.setNavigationIcon(R.drawable.baseline_close_24);
         toolbar.setNavigationOnClickListener(v-> dismiss());
         datePicker.setOnClickListener(v->{
-            datePicker.setText(openDatePickerDialog());
+            openDatePickerDialog();
         });
 
         //list of positions
@@ -123,28 +129,33 @@ public class AddEmployeeDialog extends DialogFragment implements AdapterView
         checkErrorInEditText(etContactNumber,10);
         checkErrorInEditText(etPass,4);
         checkErrorInEditText(etCode,4);
-
         saveEmployee.setOnClickListener(v -> {
             firstName = etFName.getText().toString();
             lastName = etLName.getText().toString();
             contactNumber = etContactNumber.getText().toString();
             email = etEmail.getText().toString();
-            employeeType = etEmployeeType.getText().toString();
+            empType = etEmpType.getText().toString();
             String inputCode = etCode.getText().toString();
             String inputPass = etPass.getText().toString();
+            String inputPayRate = etPayRate.getText().toString();
 
-            if (!(inputCode.isEmpty() || inputPass.isEmpty())) {
+
+            if (!(inputCode.isEmpty() || inputPass.isEmpty() || inputPayRate.isEmpty())) {
                 code = Integer.parseInt(inputCode);
                 pass = Integer.parseInt(inputPass);
+                payRate = Double.parseDouble(inputPayRate);
 
-                if (firstName.isEmpty() || lastName.isEmpty() || contactNumber.isEmpty() || email.isEmpty() || selectedDate == null || selectedPosition == null || employeeType == null) {
+                if (firstName.isEmpty() || lastName.isEmpty() || contactNumber.isEmpty() || email.isEmpty() || selectedDate == null || selectedPosition == null || empType.isEmpty()) {
                     Toast.makeText(getContext(), "Please fill all required fields", Toast.LENGTH_SHORT).show();
                 } else {
                     getNumberOfEmployee(count -> {
                         int newId = count + 1; // Ensure ID is updated asynchronously
-                        Employee employee = new Employee(newId, firstName, lastName, email, contactNumber, selectedDate, selectedPosition, employeeType, code, pass);
+                        Employee employee = new Employee(newId, firstName, lastName, email, contactNumber, selectedDate, selectedPosition,empType, code, pass,payRate);
                         //Employee saved yo
                         reference.child("employeeInfo").child(String.valueOf(newId)).setValue(employee);
+                        if(employeeAddedListener !=null){
+                            employeeAddedListener.onEmployee();
+                        }
                         dismiss();
                     });
                 }
@@ -169,17 +180,16 @@ public class AddEmployeeDialog extends DialogFragment implements AdapterView
 
     }
 
-    private String openDatePickerDialog(){
+    private void openDatePickerDialog(){
         DatePickerDialog dialog = new DatePickerDialog(getContext(), new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
-                selectedDate = i + "/" + i1 + "/"+ i2;
+                selectedDate = i + "/" + (i1+1) + "/"+ i2;
                 Toast.makeText(getContext(),"Date selected : " + selectedDate,Toast.LENGTH_SHORT).show();
             }
-        },localDate.getYear(),localDate.getMonthValue(),localDate.getDayOfMonth());
+        },localDate.getYear(),localDate.getMonthValue()-1,localDate.getDayOfMonth());
         dialog.show();
         datePicker.setText(selectedDate);
-        return selectedDate;
     }
     public void checkErrorInEditText(TextInputEditText et, int limit){
         et.addTextChangedListener(new TextWatcher() {
@@ -230,13 +240,7 @@ public class AddEmployeeDialog extends DialogFragment implements AdapterView
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
             }
         });
     }
-
-
-
-
-
 }

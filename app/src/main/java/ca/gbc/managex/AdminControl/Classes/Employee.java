@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 public class Employee {
-    public Employee(int id, String firstName, String lastName, String email, String contactNumber, String joiningDate, String position, String empType, int empCode, int empPass) {
+    public Employee(int id, String firstName, String lastName, String email, String contactNumber, String joiningDate, String position, String empType,int empCode, int empPass, double payRate) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -17,6 +17,7 @@ public class Employee {
         this.position = position;
         this.empCode = empCode;
         this.empPass = empPass;
+        this.payRate = payRate;
         this.empType = empType;
     }
 
@@ -94,13 +95,17 @@ public class Employee {
         return empPass;
     }
 
-    public void setEmpPass(int empPass) {
-        this.empPass = empPass;
-    }
-
     public String getEmpType(){return empType;}
 
     public void setEmpType(String empType){this.empType = empType;}
+
+    public void setEmpPass(int empPass) {
+        this.empPass = empPass;
+    }
+    public double getPayRate(){return payRate;}
+    public void setPayRate(double payRate){
+        this.payRate = payRate;
+    }
 
     private int id;
     private String firstName;
@@ -111,6 +116,7 @@ public class Employee {
     private String position;
     private int empCode;
     private int empPass;
+    private double payRate;
     private String empType;
 
 }
