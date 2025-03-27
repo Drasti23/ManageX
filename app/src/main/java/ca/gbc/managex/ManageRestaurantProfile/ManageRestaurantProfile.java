@@ -22,6 +22,8 @@ public class ManageRestaurantProfile extends AppCompatActivity {
     private Button btnSaveProfile, btnCancel, btnEditProfile;
     private DatabaseReference restaurantRef;
     private ImageView backButton;
+    EditText editManagerCode, editAdminCode;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +39,9 @@ public class ManageRestaurantProfile extends AppCompatActivity {
         btnCancel = findViewById(R.id.btnCancelProfile);
         btnEditProfile = findViewById(R.id.btnEditProfile);
         backButton = findViewById(R.id.backButton);
+
+        editManagerCode = findViewById(R.id.editManagerCode);
+        editAdminCode = findViewById(R.id.editAdminCode);
 
         FirebaseAuth auth = FirebaseAuth.getInstance();
         restaurantRef = FirebaseDatabase.getInstance().getReference("Users")
@@ -60,6 +65,9 @@ public class ManageRestaurantProfile extends AppCompatActivity {
                     etContactNumber.setText(snapshot.child("contactNumber").getValue(String.class));
                     etRestaurantCuisine.setText(snapshot.child("restaurantCuisine").getValue(String.class));
                     etRestaurantAddress.setText(snapshot.child("restaurantAddress").getValue(String.class));
+                    editManagerCode.setText(snapshot.child("managerCode").getValue(String.class));
+                    editAdminCode.setText(snapshot.child("adminCode").getValue(String.class));
+
                     enableEditing(false);
                 } else {
                     Toast.makeText(ManageRestaurantProfile.this, "Profile not found", Toast.LENGTH_SHORT).show();
@@ -79,6 +87,8 @@ public class ManageRestaurantProfile extends AppCompatActivity {
         etContactNumber.setEnabled(isEditable);
         etRestaurantCuisine.setEnabled(isEditable);
         etRestaurantAddress.setEnabled(isEditable);
+        editAdminCode.setEnabled(isEditable);
+        editManagerCode.setEnabled(isEditable);
     }
 
     private void saveProfileUpdates() {
@@ -86,7 +96,10 @@ public class ManageRestaurantProfile extends AppCompatActivity {
         restaurantRef.child("restaurantEmail").setValue(etRestaurantEmail.getText().toString().trim());
         restaurantRef.child("contactNumber").setValue(etContactNumber.getText().toString().trim());
         restaurantRef.child("restaurantCuisine").setValue(etRestaurantCuisine.getText().toString().trim());
-        restaurantRef.child("restaurantAddress").setValue(etRestaurantAddress.getText().toString().trim())
+        restaurantRef.child("restaurantAddress").setValue(etRestaurantAddress.getText().toString().trim());
+        restaurantRef.child("managerCode").setValue(editManagerCode.getText().toString().trim());
+        restaurantRef.child("adminCode").setValue(editAdminCode.getText().toString().trim())
+
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
                         Toast.makeText(this, "Profile saved successfully!", Toast.LENGTH_SHORT).show();
