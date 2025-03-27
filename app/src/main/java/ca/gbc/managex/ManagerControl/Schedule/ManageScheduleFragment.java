@@ -3,6 +3,7 @@ package ca.gbc.managex.ManagerControl.Schedule;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -89,8 +90,14 @@ public class ManageScheduleFragment extends Fragment {
         btnPublish.setOnClickListener(v -> publishSchedule());
 
         // 🔥 Load Data
-        loadEmployees();
-        loadScheduleFromFirebase();
+        // 🔥 Load Data safely after view is created
+        view.post(() -> {
+            if (isAdded() && getContext() != null) {
+                loadEmployees();
+                loadScheduleFromFirebase();
+            }
+        });
+
 
         return view;
     }
@@ -201,7 +208,7 @@ public class ManageScheduleFragment extends Fragment {
         }
 
         dayCell.setText(existingText + schedule.getStartTime() + " - " + schedule.getEndTime());
-        dayCell.setBackgroundColor(getResources().getColor(android.R.color.holo_blue_light));
+        dayCell.setBackgroundColor(getResources().getColor(R.color.app_button));
 
         Log.d("UIUpdate", "Updated UI for: " + schedule.getEmpName() + " on " + schedule.getDay());
     }
@@ -418,19 +425,23 @@ public class ManageScheduleFragment extends Fragment {
                     employeeNames.add(firstName + " " + lastName + " - " + position + " (" + empType + ")");
                 }
 
-                ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_dropdown_item, employeeNames);
-                spinnerEmployee.setAdapter(adapter);
-                spinnerEmployee.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                    @Override
-                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                        selectedEmployee = employeeList.get(position);
-                    }
+                Context safeContext = getActivity();
+                if (safeContext != null) {
+                    ArrayAdapter<String> adapter = new ArrayAdapter<>(safeContext, android.R.layout.simple_spinner_dropdown_item, employeeNames);
+                    spinnerEmployee.setAdapter(adapter);
+                    spinnerEmployee.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                        @Override
+                        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                            selectedEmployee = employeeList.get(position);
+                        }
 
-                    @Override
-                    public void onNothingSelected(AdapterView<?> parent) {
-                        selectedEmployee = null;
-                    }
-                });
+                        @Override
+                        public void onNothingSelected(AdapterView<?> parent) {
+                            selectedEmployee = null;
+                        }
+                    });
+                }
+
             }
 
             @Override
@@ -522,39 +533,39 @@ public class ManageScheduleFragment extends Fragment {
 
 
     private void addTableHeaders() {
+        Context context = getContext();
+        if (context == null || getActivity() == null) return;
+
         if (tableSchedule.getChildCount() > 0) {
-            tableSchedule.removeViewAt(0); // Remove old headers if they exist
+            tableSchedule.removeViewAt(0);
         }
 
-        TableRow headerRow = new TableRow(getContext());
+        TableRow headerRow = new TableRow(context);
 
-        // Add Employee Header
-        TextView employeeHeader = new TextView(getContext());
+        TextView employeeHeader = new TextView(context);
         employeeHeader.setText("Employee");
         employeeHeader.setPadding(16, 8, 16, 8);
         employeeHeader.setTextSize(16);
-        employeeHeader.setTextColor(getResources().getColor(android.R.color.white));
-        employeeHeader.setBackgroundColor(getResources().getColor(android.R.color.darker_gray));
+        employeeHeader.setTextColor(context.getResources().getColor(android.R.color.white));
+        employeeHeader.setBackgroundColor(context.getResources().getColor(android.R.color.darker_gray));
         employeeHeader.setGravity(Gravity.CENTER);
         headerRow.addView(employeeHeader);
 
-        // Generate dynamic dates for the selected week
         List<String> weekDates = generateWeekDates(selectedWeek);
-
         for (String date : weekDates) {
-            TextView headerCell = new TextView(getContext());
-            headerCell.setText(date);  // Now dynamically displays days & dates
+            TextView headerCell = new TextView(context);
+            headerCell.setText(date);
             headerCell.setPadding(16, 8, 16, 8);
             headerCell.setTextSize(16);
-            headerCell.setTextColor(getResources().getColor(android.R.color.white));
-            headerCell.setBackgroundColor(getResources().getColor(android.R.color.darker_gray));
+            headerCell.setTextColor(context.getResources().getColor(android.R.color.white));
+            headerCell.setBackgroundColor(context.getResources().getColor(android.R.color.darker_gray));
             headerCell.setGravity(Gravity.CENTER);
             headerRow.addView(headerCell);
         }
 
-        // Add the header row to the table
         tableSchedule.addView(headerRow, 0);
     }
+
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {

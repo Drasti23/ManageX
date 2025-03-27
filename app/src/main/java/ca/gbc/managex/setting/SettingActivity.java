@@ -9,9 +9,11 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.*;
 
 import ca.gbc.managex.AdminControl.AdminControlActivity;
 import ca.gbc.managex.ManageRestaurantProfile.ManageRestaurantProfile;
@@ -21,104 +23,120 @@ import ca.gbc.managex.databinding.ActivitySettingBinding;
 import ca.gbc.managex.user.LoginActivity;
 
 public class SettingActivity extends AppCompatActivity {
+    private static final String DEFAULT_ACCESS = "1234";
     ActivitySettingBinding binding;
     ImageView back;
 
-    private static final String OWNER_PASSWORD = "2000";
-    private static final String MANAGER_PASSWORD = "1000";
+    private String managerCode = DEFAULT_ACCESS;
+    private String adminCode = DEFAULT_ACCESS;
+
+    DatabaseReference credentialsRef = FirebaseDatabase.getInstance().getReference()
+            .child("Users").child(FirebaseAuth.getInstance().getUid()).child("credentials");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_setting);
         binding = ActivitySettingBinding.inflate(getLayoutInflater());
         setContentView(binding.main);
 
         back = findViewById(R.id.backButton);
-        back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });
+        back.setOnClickListener(view -> finish());
 
-        binding.cvLogout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                promptForPassword("Logout");
-            }
-        });
+        fetchCodesFromDatabase();
 
-        binding.cvOwner.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                promptForPassword("Owner");
-            }
-        });
+        // Require code to unlock settings access
+        promptForAccessBeforeUnlockingSettings();
+    }
 
-        binding.cvManager.setOnClickListener(new View.OnClickListener() {
+    private void fetchCodesFromDatabase() {
+        credentialsRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onClick(View view) {
-                promptForPassword("Manager");
-            }
-        });
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                String mgr = snapshot.child("managerCode").getValue(String.class);
+                String adm = snapshot.child("adminCode").getValue(String.class);
 
-        binding.cvResProfile.setOnClickListener(new View.OnClickListener() {
+                if (mgr != null) managerCode = mgr;
+                if (adm != null) adminCode = adm;
+            }
+
             @Override
-            public void onClick(View view) {
-                promptForPassword("ChangeRestaurant");
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(SettingActivity.this, "Error loading credentials", Toast.LENGTH_SHORT).show();
             }
         });
     }
 
-    private void promptForPassword(String action) {
+    private void promptForAccessBeforeUnlockingSettings() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        EditText input;
-        View view = getLayoutInflater().inflate(R.layout.dialog_password_prompt,null);
-        input = view.findViewById(R.id.etPasswordInput);
+        View view = getLayoutInflater().inflate(R.layout.dialog_password_prompt, null);
+        EditText input = view.findViewById(R.id.etPasswordInput);
         builder.setView(view);
         builder.setCancelable(false);
 
-        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                String enteredPassword = input.getText().toString();
-                if (enteredPassword.equals(OWNER_PASSWORD) || enteredPassword.equals(MANAGER_PASSWORD)) {
-                    if (action.equals("Owner")) {
-                        Intent intent = new Intent(SettingActivity.this, AdminControlActivity.class);
-                        startActivity(intent);
-                    } else if (action.equals("Manager")) {
-                         Intent i = new Intent(SettingActivity.this, ManagerControlActivity.class);
-                          startActivity(i);
+        builder.setTitle("Access Settings");
+        builder.setMessage("Enter admin or manager access code");
 
-                    } else if (action.equals("Logout")) {
-                        logout();
-                    } else if (action.equals("ChangeRestaurant")) {
-                        // Implement Change Restaurant logic
-                        Intent i = new Intent(SettingActivity.this, ManageRestaurantProfile.class);
-                        startActivity(i);
-                        Toast.makeText(SettingActivity.this, "Change Restaurant Access Granted", Toast.LENGTH_SHORT).show();
-                    }
-                } else {
-                    Toast.makeText(SettingActivity.this, "Incorrect Password", Toast.LENGTH_SHORT).show();
-                }
+        builder.setPositiveButton("Enter", (dialog, which) -> {
+            String enteredPassword = input.getText().toString().trim();
+            if (enteredPassword.equals(managerCode) || enteredPassword.equals(adminCode)) {
+                initSettings(); // 🟢 Access granted
+            } else {
+                Toast.makeText(this, "Access denied", Toast.LENGTH_SHORT).show();
+                finish(); // 🚫 Block access
             }
         });
 
-        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.cancel();
-            }
-        });
-
+        builder.setNegativeButton("Cancel", (dialog, which) -> finish());
         builder.show();
     }
 
-    public void logout() {
+    private void initSettings() {
+        binding.cvLogout.setOnClickListener(view -> promptForPassword("Logout"));
+        binding.cvOwner.setOnClickListener(view -> promptForPassword("Owner"));
+        binding.cvManager.setOnClickListener(view -> promptForPassword("Manager"));
+        binding.cvResProfile.setOnClickListener(view -> promptForPassword("ChangeRestaurant"));
+    }
+
+    private void promptForPassword(String role) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        View view = getLayoutInflater().inflate(R.layout.dialog_password_prompt, null);
+        EditText input = view.findViewById(R.id.etPasswordInput);
+        builder.setView(view);
+        builder.setCancelable(false);
+
+        builder.setTitle("Enter Code");
+
+        builder.setPositiveButton("OK", (dialog, which) -> {
+            String enteredPassword = input.getText().toString().trim();
+
+            if ((role.equals("Owner") && enteredPassword.equals(adminCode)) ||
+                    (role.equals("Manager") && enteredPassword.equals(managerCode))) {
+
+                if (role.equals("Owner")) {
+                    startActivity(new Intent(this, AdminControlActivity.class));
+                } else if (role.equals("Manager")) {
+                    startActivity(new Intent(this, ManagerControlActivity.class));
+                }
+
+            } else if (role.equals("Logout")) {
+                logout();
+
+            } else if (role.equals("ChangeRestaurant")) {
+                startActivity(new Intent(this, ManageRestaurantProfile.class));
+                Toast.makeText(this, "Access granted", Toast.LENGTH_SHORT).show();
+
+            } else {
+                Toast.makeText(this, "Incorrect code", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        builder.setNegativeButton("Cancel", (dialog, which) -> dialog.cancel());
+        builder.show();
+    }
+
+    private void logout() {
         FirebaseAuth.getInstance().signOut();
-        Intent i = new Intent(SettingActivity.this, LoginActivity.class);
-        startActivity(i);
+        startActivity(new Intent(this, LoginActivity.class));
         finish();
     }
 }

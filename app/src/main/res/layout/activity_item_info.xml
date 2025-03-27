@@ -9,12 +9,15 @@
     tools:context=".AdminControl.ItemInfoActivity">
 
     <!-- App Bar -->
+
+    <!-- Item Name -->
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:theme="@style/ThemeOverlay.Material3.Dark.ActionBar"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:navigationIcon="@drawable/baseline_arrow_back_24"
@@ -23,7 +26,6 @@
         app:titleTextColor="@color/black"
         tools:ignore="MissingConstraints" />
 
-    <!-- Item Name -->
     <EditText
         android:id="@+id/tvItemName"
         android:layout_width="match_parent"

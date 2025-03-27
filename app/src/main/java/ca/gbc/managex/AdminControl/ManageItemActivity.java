@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -33,6 +34,7 @@ import ca.gbc.managex.AdminControl.Adapter.ItemCardAdapter;
 import ca.gbc.managex.AdminControl.Adapter.SizePriceAdapter;
 import ca.gbc.managex.AdminControl.Classes.Item;
 import ca.gbc.managex.AdminControl.Classes.ItemSize;
+import ca.gbc.managex.AdminControl.Fragments.ManagePOSFragment;
 import ca.gbc.managex.R;
 
 public class ManageItemActivity extends AppCompatActivity {
@@ -60,6 +62,15 @@ public class ManageItemActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
+        ImageView backButton = findViewById(R.id.backButton);
+        backButton.setOnClickListener(v -> {
+            Intent intent = new Intent(ManageItemActivity.this, AdminControlActivity.class);
+            intent.putExtra("openFragment", "POS");
+            startActivity(intent);
+            finish(); // optional: finishes current activity so user can't come back with back button
+        });
+
 
         Intent i = getIntent();
         sectionName = i.getStringExtra("sectionName");

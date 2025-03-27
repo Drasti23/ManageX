@@ -5,14 +5,20 @@
     android:orientation="horizontal"
     android:padding="8dp">
 
+
+    <ScrollView
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1">
+
     <!-- Left Side: Slot Creation Panel -->
     <LinearLayout
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1"
         android:orientation="vertical"
         android:padding="16dp"
-        android:background="@android:color/darker_gray">
+        android:background="@color/theme_2">
 
         <TextView
             android:id="@+id/tvSelectedWeek"
@@ -22,17 +28,20 @@
             android:textSize="14sp"
             android:padding="8dp"
             android:gravity="center"
-            android:background="@android:color/white"
-            android:textColor="@android:color/black"
+            android:background="@color/light_background"
+            android:textColor="@color/gray1"
             android:clickable="true"
             android:focusable="true" />
 
         <CalendarView
+            style="@style/CustomCalendarView"
             android:id="@+id/calendarView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:dateTextAppearance="?android:attr/textAppearanceMedium"
-            android:layout_marginTop="10dp"/>
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="12dp"
+            />
 
         <TextView
             android:id="@+id/tvStartTime"
@@ -40,10 +49,11 @@
             android:layout_height="wrap_content"
             android:text="Select Start Time"
             android:textSize="14sp"
-            android:padding="8dp"
+            android:padding="12dp"
+            android:layout_marginTop="12dp"
             android:gravity="center"
-            android:background="@android:color/white"
-            android:textColor="@android:color/black"
+            android:background="@color/light_background"
+            android:textColor="@color/gray1"
             android:clickable="true"
             android:focusable="true" />
 
@@ -53,10 +63,11 @@
             android:layout_height="wrap_content"
             android:text="Select End Time"
             android:textSize="14sp"
-            android:padding="8dp"
+            android:padding="12dp"
+            android:layout_marginTop="12dp"
             android:gravity="center"
-            android:background="@android:color/white"
-            android:textColor="@android:color/black"
+            android:background="@color/light_background"
+            android:textColor="@color/gray1"
             android:clickable="true"
             android:focusable="true" />
 
@@ -65,13 +76,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Duration: 0 hrs"
+            android:layout_marginTop="12dp"
             android:textSize="14sp"
             android:padding="8dp"
             android:gravity="center"
-            android:background="@android:color/white"
-            android:textColor="@android:color/black" />
+            android:background="@color/light_background"
+            android:textColor="@color/gray1" />
 
         <Spinner
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="12dp"
             android:id="@+id/spinnerEmployee"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -88,7 +102,7 @@
                 android:id="@+id/btnCreateSlot"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:backgroundTint="@color/blue_secondary"
+                android:backgroundTint="@color/okeBlue"
                 android:text="Create" />
 
             <Space
@@ -99,31 +113,45 @@
                 android:id="@+id/btnCancelSlot"
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
-                android:backgroundTint="@color/red"
+                android:backgroundTint="@color/beet"
                 android:text="Cancel" />
         </LinearLayout>
     </LinearLayout>
+    </ScrollView>
+
 
     <!-- Right Side: Schedule Matrix Table + Publish Button -->
-    <LinearLayout
+
+
+    <HorizontalScrollView
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="2"
+        android:fillViewport="true"
+        android:scrollbars="horizontal">
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical">
 
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
             android:fillViewport="true">
 
-            <TableLayout
+        <TableLayout
                 android:id="@+id/tableSchedule"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:stretchColumns="*"
                 android:padding="8dp"
-                android:background="@android:color/white">
+                android:layout_marginTop="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:background="@color/textColor">
 
                 <TableRow>
                     <TextView
@@ -133,7 +161,7 @@
                         android:padding="8dp"
                         android:textSize="14sp"
                         android:gravity="center"
-                        android:background="@android:color/darker_gray"
+                        android:background="@color/gray1"
                         android:textColor="@android:color/white" />
 
                     <TextView
@@ -211,11 +239,13 @@
             android:layout_height="wrap_content"
             android:text="Publish Schedule"
             android:layout_margin="8dp"
-            android:backgroundTint="@color/blue_secondary"
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="16dp"
+            android:backgroundTint="@color/dark_blue"
             android:textColor="@android:color/white"
             android:gravity="center"
             android:layout_gravity="center_horizontal"/>
 
     </LinearLayout>
-
+    </HorizontalScrollView>
 </LinearLayout>

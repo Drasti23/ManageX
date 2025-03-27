@@ -47,6 +47,8 @@
             android:exported="false" />
         <activity
             android:name=".POS.MainPOSActivity"
+            android:screenOrientation="landscape"
+            android:configChanges="orientation|screenSize"
             android:exported="false" />
         <activity
             android:name=".user.Registration2"
