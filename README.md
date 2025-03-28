@@ -49,9 +49,9 @@ Upon installation, you can:
 
 ## 👨‍💻 Development Team
 
-- **Drasti Parikh** – Team Lead & Backend Developer  
-- **Om Makwana** – Lead Developer & System Designer  
-- **Param Patel** – Backend Developer  
+- **Drasti Parikh** – Team Lead & Backend Developer
+- **Param Patel** – Backend Developer & System Designer  
+- **Om Makwana** – Lead Developer 
 - **Ankitha Ralla** – Frontend Developer  
 - **Rushil Tamakuwala** – Firebase & Database Management  
 
