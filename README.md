@@ -8,7 +8,7 @@
 
 ### 🚀 Installation
 
-ManageX will be soon be available on the **Google Play Store**:
+ManageX will be soon be available on the **Google Play Store**.
 
 ---
 
