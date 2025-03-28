@@ -43,7 +43,7 @@ Upon installation, you can:
 ## 📄 Support & Documentation
 
 - Step-by-step usage guide is built into the app
-- For additional support, contact: **managex.support@gmail.com**
+- For additional support, contact: **Drasti.Parikh@georgebrown.ca**
 
 ---
 
