@@ -1,5 +1,6 @@
 package ca.gbc.managex.AdminControl;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -11,6 +12,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import ca.gbc.managex.AdminControl.Fragments.ManageEmployeeFragment;
 import ca.gbc.managex.AdminControl.Fragments.ManagePOSFragment;
 import ca.gbc.managex.R;
+import ca.gbc.managex.setting.SettingActivity;
 
 public class AdminControlActivity extends AppCompatActivity  implements BottomNavigationView
         .OnNavigationItemSelectedListener{
@@ -36,7 +38,14 @@ public class AdminControlActivity extends AppCompatActivity  implements BottomNa
         }
 
         back = findViewById(R.id.backButton);
-        back.setOnClickListener(view -> finish());
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(AdminControlActivity.this, SettingActivity.class);
+                startActivity(i);
+                finish();
+            }
+        });
     }
 
     ManageEmployeeFragment firstFragment = new ManageEmployeeFragment();

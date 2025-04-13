@@ -254,9 +254,6 @@ public class ManageScheduleFragment extends Fragment {
     }
 
     private void generatePrintableSchedule() {
-        StringBuilder scheduleText = new StringBuilder();
-        scheduleText.append("Employee Weekly Schedule\n\n");
-
         databaseReference.child("employeeSchedule").child(selectedWeek).child("Select Week")
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
@@ -266,24 +263,25 @@ public class ManageScheduleFragment extends Fragment {
                             return;
                         }
 
+                        // 🧠 Collect all schedule data
+                        Map<String, List<Schedule>> scheduleByDate = new TreeMap<>();
                         for (DataSnapshot daySnapshot : snapshot.getChildren()) {
                             String day = daySnapshot.getKey();
-                            scheduleText.append("📅 Date: ").append(day).append("\n");
 
                             for (DataSnapshot monthSnapshot : daySnapshot.getChildren()) {
                                 for (DataSnapshot scheduleSnapshot : monthSnapshot.getChildren()) {
                                     Schedule schedule = scheduleSnapshot.getValue(Schedule.class);
                                     if (schedule != null) {
-                                        scheduleText.append("👤 ").append(schedule.getEmpName())
-                                                .append(" | ⏰ ").append(schedule.getStartTime()).append(" - ").append(schedule.getEndTime())
-                                                .append(" | ⏳ ").append(schedule.getDuration()).append("\n");
+                                        scheduleByDate
+                                                .computeIfAbsent(day, k -> new ArrayList<>())
+                                                .add(schedule);
                                     }
                                 }
                             }
-                            scheduleText.append("\n");
                         }
 
-                        showPublishDialog(scheduleText.toString());  // ✅ Display schedule before saving
+                        // Pass to PDF generator
+                        printStructuredSchedule(scheduleByDate);
                     }
 
                     @Override
@@ -292,6 +290,84 @@ public class ManageScheduleFragment extends Fragment {
                     }
                 });
     }
+    private void printStructuredSchedule(Map<String, List<Schedule>> scheduleMap) {
+        PdfDocument pdfDocument = new PdfDocument();
+        Paint paint = new Paint();
+        paint.setTextSize(14);
+        paint.setAntiAlias(true);
+
+        int pageNum = 1;
+
+        // 📆 Format week title
+        List<String> weekDates = generateWeekDates(selectedWeek);
+        String weekTitle = weekDates.get(0) + " - " + weekDates.get(6); // first - last
+        String year = selectedWeek.split("-W")[0];
+
+        for (Map.Entry<String, List<Schedule>> entry : scheduleMap.entrySet()) {
+            String day = entry.getKey();
+            List<Schedule> dailySchedules = entry.getValue();
+
+            PdfDocument.PageInfo pageInfo = new PdfDocument.PageInfo.Builder(600, 800, pageNum++).create();
+            PdfDocument.Page page = pdfDocument.startPage(pageInfo);
+            Canvas canvas = page.getCanvas();
+
+            int y = 40;
+
+            // 🏷 Header
+            paint.setFakeBoldText(true);
+            paint.setTextSize(16);
+            canvas.drawText("📅 Week Schedule: " + weekTitle, 20, y, paint);
+            canvas.drawText("Year: " + year, 450, y, paint);
+            y += 40;
+
+            // 📌 Day Heading
+            paint.setTextSize(15);
+            canvas.drawText("🗓 Date: " + day, 20, y, paint);
+            y += 30;
+
+            paint.setTextSize(14);
+            paint.setFakeBoldText(false);
+
+            // 🧾 Sort by start time
+            Collections.sort(dailySchedules, Comparator.comparing(Schedule::getStartTime));
+
+            for (Schedule schedule : dailySchedules) {
+                if (y > 750) { // page break logic
+                    pdfDocument.finishPage(page);
+                    pageInfo = new PdfDocument.PageInfo.Builder(600, 800, pageNum++).create();
+                    page = pdfDocument.startPage(pageInfo);
+                    canvas = page.getCanvas();
+                    y = 40;
+                }
+
+                String timeFrame = "⏰ " + schedule.getStartTime() + " - " + schedule.getEndTime();
+                String empName = "👤 " + schedule.getEmpName();
+                String duration = "⏳ " + schedule.getDuration();
+
+                canvas.drawText(timeFrame + "  ➝  " + empName + "  (" + duration + ")", 30, y, paint);
+                y += 25;
+            }
+
+            pdfDocument.finishPage(page);
+        }
+
+        File file = new File(getContext().getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS), "Published_Schedule.pdf");
+
+        try {
+            FileOutputStream fos = new FileOutputStream(file);
+            pdfDocument.writeTo(fos);
+            pdfDocument.close();
+            fos.close();
+
+            Toast.makeText(getContext(), "📂 PDF Saved: " + file.getAbsolutePath(), Toast.LENGTH_LONG).show();
+            openPDF(file);
+        } catch (IOException e) {
+            e.printStackTrace();
+            Toast.makeText(getContext(), "⚠ Error saving PDF!", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+
 
 
     private void showPublishDialog(String scheduleText) {
@@ -340,7 +416,7 @@ public class ManageScheduleFragment extends Fragment {
 
         pdfDocument.finishPage(page);
 
-        File file = new File(getContext().getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS), "Published_Schedule.pdf");
+        File file = new File(getContext().getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS), "Published_Schedule.pdf");
 
         try {
             FileOutputStream fos = new FileOutputStream(file);

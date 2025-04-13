@@ -236,7 +236,7 @@ public class PaymentActivity extends AppCompatActivity {
                 if(!noTax){
                     paymentObj.setTotalAmountToPay(paymentObj.getSubTotal());
                     paymentObj.setTax(0);
-                    binding.tvTotalDue.setText("%.2f"+paymentObj.getTotalAmountToPay());
+                    binding.tvTotalDue.setText(""+paymentObj.getTotalAmountToPay());
                     binding.tvTotal.setText(paymentObj.getTotalAmountToPay()+"");
                     binding.tvPOSTax.setText("Tax removed.(0)");
                     noTax = true;
@@ -246,7 +246,7 @@ public class PaymentActivity extends AppCompatActivity {
                     double newDue = paymentObj.getSubTotal() + tax;
                     paymentObj.setTotalAmountToPay(newDue);
                     paymentObj.setTax(tax);
-                    binding.tvTotalDue.setText("%.2f"+paymentObj.getTotalAmountToPay());
+                    binding.tvTotalDue.setText(""+paymentObj.getTotalAmountToPay());
                     binding.tvTotal.setText(paymentObj.getTotalAmountToPay()+"");
                     binding.tvPOSTax.setText(tax+"");
                     noTax = false;
